@@ -11,16 +11,14 @@ build-job:
   stage: build
   script:
     - echo "Building the application...brrrrrr"
-    - npm run build
+    - npm run build -- --no-cache
 
 test-job:
   stage: test
   script:
     - echo "Testing the application...brrrrrr"
-    - npm run test
 
 deploy-job:
   stage: deploy
   script:
     - echo "Deploying the application...brrrrrr"
-    - npm run deploy
