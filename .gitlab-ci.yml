@@ -11,7 +11,7 @@ build-job:
   stage: build
   script:
     - echo "Building the application...brrrrrr"
-    - npm run build --no-progress --silent
+    - CI=true npm run build --no-progress --silent
 
 test-job:
   stage: test
