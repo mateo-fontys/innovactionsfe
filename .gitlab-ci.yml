@@ -4,6 +4,7 @@ stages:
   - deploy
 
 before_script:
+  - npm ci
   - npm install
   - echo "Installing dependencies...brrrrrr"
 
@@ -11,7 +12,7 @@ build-job:
   stage: build
   script:
     - echo "Building the application...brrrrrr"
-    - npm run build --no-esbuild
+    - npm start --prod 
 
 test-job:
   stage: test
