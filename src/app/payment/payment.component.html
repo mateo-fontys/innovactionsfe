@@ -1,0 +1,18 @@
+<div>
+    <h2>Payment Form</h2>
+  
+    <!-- Input for amount -->
+    <label for="amount">Amount:</label>
+    <input id="amount" type="number" [(ngModel)]="amount" />
+  
+    <br>
+  
+    <!-- Input for currency -->
+    <label for="currency">Currency:</label>
+    <input id="currency" type="text" [(ngModel)]="currency" />
+  
+    <br>
+  
+    <!-- Submit Button -->
+    <button (click)="sendPayment()">Submit</button>
+  </div>
