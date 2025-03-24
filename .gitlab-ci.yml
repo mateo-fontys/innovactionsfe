@@ -11,7 +11,7 @@ build-job:
   stage: build
   script:
     - echo "Building the application...brrrrrr"
-    - ng serve --no-hmr
+    - ng build --no-esbuild
 
 test-job:
   stage: test
