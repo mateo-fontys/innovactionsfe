@@ -11,7 +11,7 @@ build-job:
   stage: build
   script:
     - echo "Building the application...brrrrrr"
-    - npm build --no-esbuild
+    - npm run build --no-esbuild
 
 test-job:
   stage: test
