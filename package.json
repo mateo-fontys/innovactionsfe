@@ -23,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@popperjs/core": "^2.11.8",
     "@tailwindcss/postcss": "^4.0.15",
+    "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
     "flowbite": "^3.1.2",
