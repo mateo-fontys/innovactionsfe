@@ -1,0 +1,28 @@
+<div class="payment-container">
+    <h2>Withdraw Funds</h2>
+    
+    <form (ngSubmit)="submitPayout()">
+      <div>
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber" required>
+      </div>
+  
+      <div>
+        <label for="cardExpiry">Expiration Date (MM/YY)</label>
+        <input type="text" id="cardExpiry" [(ngModel)]="cardExpiry" name="cardExpiry" required>
+      </div>
+  
+      <div>
+        <label for="cardCvc">CVC</label>
+        <input type="text" id="cardCvc" [(ngModel)]="cardCvc" name="cardCvc" required>
+      </div>
+  
+      <div>
+        <label for="amount">Amount (£)</label>
+        <input type="number" id="amount" [(ngModel)]="amount" name="amount" required>
+      </div>
+  
+      <button type="submit">Submit Payout</button>
+    </form>
+  </div>
+  
