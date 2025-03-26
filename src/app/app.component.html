@@ -209,11 +209,18 @@
     <div>
       <h1>Rob's cool button</h1>
       <button (click)="fetchData()">Fetch the data</button>
+      <!-- <button (click)="updateVirtualMoney()">Update the Virtual Money</button> -->
 
       <div *ngIf="data">
         <div *ngFor="let key of ['username', 'virtualMoney']">
-          <p>{{ key }}: {{ data.data[key] }}</p>
+          <p>{{ key }}: {{ data[key] }}</p>
         </div>
+      </div>
+
+      <!-- Input to update virtual money -->
+      <div>
+        <input [(ngModel)]="newVirtualMoney" type="number" placeholder="Enter new virtual money" />
+        <button (click)="updateVirtualMoney()">Update Virtual Money</button>
       </div>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
