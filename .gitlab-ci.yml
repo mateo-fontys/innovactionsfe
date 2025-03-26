@@ -3,9 +3,9 @@ stages:
   - test
   - deploy
 
-before_script:
-  # - npm install
-  - echo "Installing dependencies...brrrrrr"
+# before_script:
+#   # - npm install
+#   - echo "Installing dependencies...brrrrrr"
 
 build-job:
   stage: build
