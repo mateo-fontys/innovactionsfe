@@ -10,7 +10,7 @@ before_script:
 build-job:
   stage: build
   script:
-    - echo "Building the application...brrrrrr"
+    - echo "Building the application...brrr"
 #     - CI=true npm run build --no-progress --silent
 
 test-job:
