@@ -1,0 +1,30 @@
+nav {
+  background-color: #333;
+  color: white;
+  padding: 0.5rem;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.custom-link a {
+  color: white;
+  text-decoration: none;
+}
+
+.custom-link a:hover {
+  color: rgb(61, 122, 255);
+  text-decoration: underline;
+}
