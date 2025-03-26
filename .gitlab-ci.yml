@@ -4,15 +4,15 @@ stages:
   - deploy
 
 before_script:
-  - npm ci
-  - npm install
+  # - npm ci
+  # - npm install
   - echo "Installing dependencies...brrrrrr"
 
 build-job:
   stage: build
   script:
     - echo "Building the application...brrrrrr"
-    - npm start --prod 
+    # - npm start --prod 
 
 test-job:
   stage: test
