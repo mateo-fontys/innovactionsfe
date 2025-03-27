@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { PaymentService } from '../../service/PaymentService';
 
 @Component({
@@ -12,6 +10,7 @@ import { PaymentService } from '../../service/PaymentService';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
+
 export class PaymentComponent implements OnInit {
 
   
@@ -20,8 +19,6 @@ export class PaymentComponent implements OnInit {
   card: any;
   amount: number = 500;
   currency: string = 'usd';
-
-  constructor(private http: HttpClient) {}
 
   async ngOnInit() {
     this.stripe = await loadStripe('pk_test_51R3cJuGhJZbsy2ABv0DEcpfLR0fYkSfNOG9tZZdEAuIRhzI8WLF0ogRbAqvZwkKaWpARRja7kyJpmWX9XII2g4G100e4FlPH8L');  // Replace with your public Stripe key
@@ -39,6 +36,7 @@ export class PaymentComponent implements OnInit {
       return;
     }
     const { clientSecret } = await PaymentService.deposit(this.amount, this.currency);
+    console.log(clientSecret)
 
         const { error, paymentIntent } = await this.stripe!.confirmCardPayment(clientSecret, {
           payment_method: {
