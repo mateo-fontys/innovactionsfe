@@ -12,6 +12,6 @@ export class ApiService {
 
   // Make sure the correct URL is used
   fetchData(): Observable<User> {
-    return this.http.get<User>('http://localhost:8081/users/1');
+    return this.http.get<User>('http://localhost:8080/users/1');
   }
 }

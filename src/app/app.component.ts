@@ -22,7 +22,7 @@ export class AppComponent {
   fetchData() {
     console.log('Fetching data...');
     axios
-      .get('http://localhost:8081/users/1')
+      .get('http://localhost:8080/users/1')
       .then((response) => {
         this.data = response.data; // Store the fetched data
         console.log(this.data); // Log the fetched data
@@ -36,7 +36,7 @@ export class AppComponent {
   updateVirtualMoney() {
     console.log('Updating virtual money...');
     axios
-      .put('http://localhost:8081/users/1', {
+      .put('http://localhost:8080/users/1', {
         // TODO: make username not hardcoded
         username: "rob",
         virtualMoney: this.newVirtualMoney, // The updated virtualMoney value
