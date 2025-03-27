@@ -7,7 +7,7 @@ import { BugReport } from './bug-report.model';
   providedIn: 'root'
 })
 export class ReportService {
-  private apiUrl = 'http://localhost:8080/api/reports';
+  private apiUrl = 'http://localhost:8080/report';
 
   constructor(private http: HttpClient) {}
 
