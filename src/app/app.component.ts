@@ -8,7 +8,6 @@ import { provideRouter } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { BugReportFormComponent } from './bug-report-form/bug-report-form.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
