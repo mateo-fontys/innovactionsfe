@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { loadStripe, StripeElements, StripeCardElement, Stripe, TokenResult } from '@stripe/stripe-js';
-import { PaymentService } from '../../service/PaymentService';
+import { PaymentService } from '../shared/PaymentService';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

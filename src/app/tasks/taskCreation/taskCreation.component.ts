@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NgbdDatepickerMultiple } from "../../../components/dateTimePicker/dateTimePicker";
+import { NgbdDatepickerMultiple } from "../../utilities/dateTimePicker/dateTimePicker";
 import { FormsModule } from '@angular/forms';
 import axios from 'axios';
 import { Router } from '@angular/router';
-import TasksService from '../../../apis/TasksService';
+import TasksService from '../shared/TasksService';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PaymentService } from '../../service/PaymentService';
+import { PaymentService } from '../shared/PaymentService';
 
 @Component({
   selector: 'app-payment',

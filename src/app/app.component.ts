@@ -1,21 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';  // Import FormsModule here
 import axios from 'axios';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { provideRouter } from '@angular/router';
-import { RouterModule } from '@angular/router';
-import { routes } from './app.routes';
-import { BugReportFormComponent } from './bug-report-form/bug-report-form.component';
-import { PaymentComponent } from './payment/payment.component';
-import { PayoutComponent } from './payout/payout.component';
+import { NavbarComponent } from './utilities/navbar/navbar.component';
+import { BugReportFormComponent } from './tasks/bug-report-form/bug-report-form.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   // standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, CommonModule, BugReportFormComponent, FormsModule], // ✅ Added FormsModule here
+  imports: [CommonModule, RouterOutlet, NavbarComponent, CommonModule, FormsModule], 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
