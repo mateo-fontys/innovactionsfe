@@ -1,0 +1,24 @@
+<div>
+  <h2>Payment Form</h2>
+
+  <!-- Amount input (this can be dynamic) -->
+  <label for="amount">Amount:</label>
+  <input id="amount" type="number" [(ngModel)]="amount" />
+
+  <br>
+
+  <!-- Currency input (this can also be dynamic) -->
+  <label for="currency">Currency:</label>
+  <input id="currency" type="text" [(ngModel)]="currency" />
+
+  <br>
+
+  <!-- Card Input -->
+  <label for="card-element">Credit or Debit Card</label>
+  <div id="card-element"></div>  <!-- This is where the card input will be rendered -->
+
+  <br>
+
+  <!-- Submit Button -->
+  <button (click)="sendPayment()">Submit Payment</button>
+</div>

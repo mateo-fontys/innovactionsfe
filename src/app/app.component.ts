@@ -8,6 +8,8 @@ import { provideRouter } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { BugReportFormComponent } from './bug-report-form/bug-report-form.component';
+import { PaymentComponent } from './payment/payment.component';
+import { PayoutComponent } from './payout/payout.component';
 
 @Component({
   selector: 'app-root',
