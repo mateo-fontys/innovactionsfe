@@ -15,7 +15,7 @@ export class BugReportFormComponent {
   reportText: string = '';
   userId: number = 1;
   taskId: number = 101;
-  apiUrl: string = 'http://localhost:8080/report';
+  apiUrl: string = '/api/report';
 
   constructor(private http: HttpClient) {}
 

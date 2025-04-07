@@ -6,14 +6,14 @@ import { PaymentService } from '../shared/PaymentService';
 
 @Component({
   selector: 'app-payment',
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule],
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
 
 export class PaymentComponent implements OnInit {
 
-  
+
   stripe: Stripe | null = null;
   elements: StripeElements | null = null;
   card: any;
@@ -49,6 +49,6 @@ export class PaymentComponent implements OnInit {
         } else if (paymentIntent && paymentIntent.status === 'succeeded') {
           console.log('Payment successful!');
         }
-    
+
   }
 }

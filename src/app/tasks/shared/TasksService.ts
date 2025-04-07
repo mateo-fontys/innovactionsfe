@@ -5,7 +5,7 @@ function CreateTask(body: any, router: Router) {
 
     console.dir(body)
 
-    axios.post("http://localhost:8080/tasks", body)
+    axios.post("/api/tasks", body)
         .then((response) => {
             if (response) {
                 console.log("Task created successfully");

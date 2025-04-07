@@ -11,7 +11,7 @@ import { BugReportFormComponent } from './tasks/bug-report-form/bug-report-form.
   selector: 'app-root',
   standalone: true,
   // standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, CommonModule, FormsModule], 
+  imports: [CommonModule, RouterOutlet, NavbarComponent, CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -26,7 +26,7 @@ export class AppComponent {
   fetchData() {
     console.log('Fetching data...');
     axios
-      .get('http://localhost:8080/users/1')
+      .get('/users/1')
       .then((response) => {
         this.data = response.data; // Store the fetched data
         console.log(this.data); // Log the fetched data
@@ -40,7 +40,7 @@ export class AppComponent {
   updateVirtualMoney() {
     console.log('Updating virtual money...');
     axios
-      .put('http://localhost:8080/users/1', {
+      .put('/users/1', {
         // TODO: make username not hardcoded
         username: "rob",
         virtualMoney: this.newVirtualMoney, // The updated virtualMoney value

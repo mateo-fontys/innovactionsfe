@@ -5,7 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 async function deposit(amount: number, currency: string){
 
-    const response = await axios.post('http://localhost:8080/payment/deposit', {
+    const response = await axios.post('/api/payment/deposit', {
         amount: amount,
         currency: currency
     });
@@ -15,11 +15,11 @@ async function deposit(amount: number, currency: string){
 
 async function withdraw(amount: number, tokenId: string){
     if(tokenId){
-        const response = await axios.post('http://localhost:8080/payment/withdraw', {
+        const response = await axios.post('/api/payment/withdraw', {
             amount: amount,
             pay: tokenId
         });
-    
+
         return response.data;
     }
 }
