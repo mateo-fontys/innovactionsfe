@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-report-form',
@@ -15,7 +16,7 @@ export class BugReportFormComponent {
   reportText: string = '';
   userId: number = 1;
   taskId: number = 101;
-  apiUrl: string = '/api/report';
+  apiUrl: string = `${environment.apiUrl}/api/report`;
 
   constructor(private http: HttpClient) {}
 

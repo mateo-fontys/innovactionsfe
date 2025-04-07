@@ -1,11 +1,19 @@
-FROM node:18-alpine AS build
+FROM node:23-alpine3.20 AS build
 
 WORKDIR /innovactions_frontend
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
 
-EXPOSE 4200
+RUN npm install -g @angular/cli
 
-CMD ["npm", "start", "--", "--host", "0.0.0.0"]
+COPY . .
+
+RUN ng build --configuration=production
+
+FROM nginx:latest
+
+COPY --from=build innovactions_frontend/dist/innovactions_frontend/browser /usr/share/nginx/html
+
+EXPOSE 80

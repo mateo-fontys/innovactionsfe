@@ -1,11 +1,12 @@
 import axios from "axios";
 import { Router } from "@angular/router";
+import { environment } from '../../../environments/environment';
 
 function CreateTask(body: any, router: Router) {
 
     console.dir(body)
 
-    axios.post("/api/tasks", body)
+    axios.post(`${environment.apiUrl}/api/tasks`, body)
         .then((response) => {
             if (response) {
                 console.log("Task created successfully");
