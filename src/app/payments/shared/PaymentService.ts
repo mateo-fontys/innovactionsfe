@@ -13,15 +13,13 @@ async function deposit(amount: number, currency: string){
     return response.data;
 }
 
-async function withdraw(amount: number, tokenId: string){
-    if(tokenId){
+async function withdraw(recipientEmail: string, amount : number){
         const response = await axios.post(`${environment.apiUrl}/api/payment/withdraw`, {
-            amount: amount,
-            pay: tokenId
+            recipientEmail: recipientEmail,
+            amount: amount
         });
 
         return response.data;
-    }
 }
 
 export const PaymentService = {

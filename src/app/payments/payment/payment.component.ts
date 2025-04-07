@@ -17,7 +17,7 @@ export class PaymentComponent implements OnInit {
   stripe: Stripe | null = null;
   elements: StripeElements | null = null;
   card: any;
-  amount: number = 500;
+  amount: number = 50;
   currency: string = 'usd';
 
   async ngOnInit() {
@@ -29,6 +29,17 @@ export class PaymentComponent implements OnInit {
       this.card = this.elements.create('card');
       this.card.mount('#card-element');
     }
+
+    this.card.addEventListener('change', (event: any) => {
+      const displayError = document.getElementById('card-errors');
+      if (displayError) {
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      }
+    });
   }
 
   async sendPayment() {

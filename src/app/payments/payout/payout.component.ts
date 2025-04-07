@@ -13,32 +13,18 @@ import { FormsModule } from '@angular/forms';
 
 
 export class PayoutComponent implements OnInit {
-  stripe: Stripe | null = null;
-  elements: StripeElements | null = null;
-  card: StripeCardElement | null = null;
-
-  amount: number = 5000;
+  recipientEmail: string = '';
+  amount: number = 5;
 
 
   async ngOnInit(): Promise<void> {
-    this.stripe = await loadStripe('pk_test_51R3cJuGhJZbsy2ABv0DEcpfLR0fYkSfNOG9tZZdEAuIRhzI8WLF0ogRbAqvZwkKaWpARRja7kyJpmWX9XII2g4G100e4FlPH8L');  // Replace with your public Stripe key
-  
-    
-      this.elements = this.stripe ? this.stripe.elements() : null;
 
-      if (this.elements) {
-        this.card = this.elements.create('card');
-        this.card.mount('#card-element');
-      }
   };
   
 
 
   async submitPayout(): Promise<void> {
-    const {token, error}: TokenResult = await this.stripe!.createToken(this.card!);
-    const tokenId = token?.id;
-    
-    const result = await PaymentService.withdraw(this.amount, tokenId!);
+    const result = await PaymentService.withdraw(this.recipientEmail, this.amount);
 
     if (result.error) {
       console.error('Payment failed:', result.error);
