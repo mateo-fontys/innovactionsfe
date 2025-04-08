@@ -19,6 +19,19 @@ export class PaymentComponent implements OnInit {
   card: any;
   amount: number = 50;
   currency: string = 'usd';
+  
+  limitDecimals(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+  
+    if (value.includes('.')) {
+      const [whole, decimal] = value.split('.');
+      if (decimal.length > 2) {
+        input.value = `${whole}.${decimal.slice(0, 2)}`;
+        this.amount = parseFloat(input.value); // update the ngModel
+      }
+    }
+  }
 
   async ngOnInit() {
     this.stripe = await loadStripe('pk_test_51R3cJuGhJZbsy2ABv0DEcpfLR0fYkSfNOG9tZZdEAuIRhzI8WLF0ogRbAqvZwkKaWpARRja7kyJpmWX9XII2g4G100e4FlPH8L');  // Replace with your public Stripe key
