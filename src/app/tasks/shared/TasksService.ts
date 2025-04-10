@@ -1,27 +1,36 @@
-import axios from "axios";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Task } from '../shared/TaskModel';
 import { environment } from '../../../environments/environment';
 
-function CreateTask(body: any, router: Router) {
+@Injectable({
+  providedIn: 'root',
+})
+export class TasksService {
+  private apiUrl = `${environment.apiUrl}/api/tasks`;
 
-    console.dir(body)
+  constructor(private http: HttpClient, private router: Router) {}
 
-    axios.post(`${environment.apiUrl}/api/tasks`, body)
-        .then((response) => {
-            if (response) {
-                console.log("Task created successfully");
-                console.log("response:")
-                console.dir(response)
-                router.navigate(['/task-home']); // Replace with your actual route
-            }
-        })
-        .catch((error) => {
-            console.log("error: " + error);
-        });
+  createTask(body: Task): void {
+    this.http.post<Task>(this.apiUrl, body).subscribe({
+      next: (response) => {
+        console.log('Task created successfully:', response);
+        this.router.navigate(['/task-home']);
+      },
+      error: (error) => {
+        console.error('Error creating task:', error);
+      },
+    });
+  }
+
+  getTaskById(id: string): Observable<Task> {
+    return this.http.get<Task>(`${this.apiUrl}/${id}`);
+  }
+
+  updateTask(id: string, task: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}/${id}`, task);
+  }
 }
 
-const TasksService = {
-    CreateTask
-}
-
-export default TasksService;
