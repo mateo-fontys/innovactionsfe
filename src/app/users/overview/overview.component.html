@@ -1,0 +1,21 @@
+<div>
+    <h1>User virtual money overview</h1>
+    <div class="text-left">
+        <button (click)="fetchData()" class="btn btn-primary">Fetch the user virtual money</button>
+    </div>
+
+    <div *ngIf="data">
+        <div *ngFor="let key of ['username', 'virtualMoney']">
+            <p>{{ key }}: {{ data[key] }}</p>
+        </div>
+    </div>
+
+    <!-- Input to update virtual money -->
+    <div>
+        <input [(ngModel)]="newVirtualMoney" type="number" placeholder="Enter new virtual money"
+            class="px-4 py-2 border rounded-lg w-48 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <div class="text-left">
+            <button (click)="updateVirtualMoney()" class="btn btn-primary">Update Virtual Money</button>
+        </div>
+    </div>
+</div>
