@@ -12,13 +12,11 @@ import { PaymentService } from '../shared/PaymentService';
 })
 
 export class PaymentComponent implements OnInit {
-
-
   stripe: Stripe | null = null;
   elements: StripeElements | null = null;
   card: any;
   amount: number = 50;
-  currency: string = 'usd';
+  currency: string = 'eur';
   
   limitDecimals(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -28,7 +26,7 @@ export class PaymentComponent implements OnInit {
       const [whole, decimal] = value.split('.');
       if (decimal.length > 2) {
         input.value = `${whole}.${decimal.slice(0, 2)}`;
-        this.amount = parseFloat(input.value); // update the ngModel
+        this.amount = parseFloat(input.value);
       }
     }
   }
@@ -60,7 +58,6 @@ export class PaymentComponent implements OnInit {
       return;
     }
     const { clientSecret } = await PaymentService.deposit(this.amount, this.currency);
-    console.log(clientSecret)
 
         const { error, paymentIntent } = await this.stripe!.confirmCardPayment(clientSecret, {
           payment_method: {

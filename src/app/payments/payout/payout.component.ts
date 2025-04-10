@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class PayoutComponent {
   recipientEmail: string = '';
   amount: number = 5;
+  currency: string = 'eur';
 
   
   limitDecimals(event: Event): void {
@@ -25,14 +26,14 @@ export class PayoutComponent {
       const [whole, decimal] = value.split('.');
       if (decimal.length > 2) {
         input.value = `${whole}.${decimal.slice(0, 2)}`;
-        this.amount = parseFloat(input.value); // update the ngModel
+        this.amount = parseFloat(input.value);
       }
     }
   }
   
 
   async submitPayout(): Promise<void> {
-    const result = await PaymentService.withdraw(this.recipientEmail, this.amount);
+    const result = await PaymentService.withdraw(this.recipientEmail, this.amount, this.currency);
 
     if (result.error) {
       console.error('Payment failed:', result.error);
