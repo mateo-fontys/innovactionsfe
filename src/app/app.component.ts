@@ -20,7 +20,7 @@ export class AppComponent {
   data: any = null; // Variable to store the fetched data
 
 
-  newVirtualMoney: number = 1000; // The amount of virtual money to update
+ 
 
   // Method to fetch data from the API
   fetchData() {
@@ -33,24 +33,6 @@ export class AppComponent {
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
-      });
-  }
-
-  // Method to update the virtual money
-  updateVirtualMoney() {
-    console.log('Updating virtual money...');
-    axios
-      .put('/users/1', {
-        // TODO: make username not hardcoded
-        username: "rob",
-        virtualMoney: this.newVirtualMoney, // The updated virtualMoney value
-      })
-      .then((response) => {
-        console.log('Virtual money updated:', response.data);
-        this.data = response.data; // Optionally update the data with the updated user info
-      })
-      .catch((error) => {
-        console.error('Error updating virtual money:', error);
       });
   }
 }

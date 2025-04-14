@@ -1,21 +1,175 @@
-<div>
-    <h1>User virtual money overview</h1>
-    <div class="text-left">
-        <button (click)="fetchData()" class="btn btn-primary">Fetch the user virtual money</button>
+<div
+  class="min-h-screen p-8 flex justify-center items-start bg-gradient-to-br from-slate-50 to-slate-200 font-sans"
+>
+  <div
+    class="w-full max-w-3xl bg-white rounded-2xl shadow-xl overflow-hidden mb-8 animate-[fadeIn_0.5s_ease-out_forwards]"
+  >
+    <!-- Header Section -->
+    <div
+      class="p-6 md:p-8 flex justify-between items-center border-b border-slate-100"
+    >
+      <div class="flex flex-col">
+        <h1 class="text-2xl font-bold text-slate-800 tracking-tight m-0">
+          Virtual Wallet
+        </h1>
+        <p class="text-sm text-slate-500 mt-1 mb-0">
+          Manage your balance and make deposits
+        </p>
+      </div>
+      <button
+        class="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:border-slate-300"
+        (click)="fetchData()"
+        title="Refresh balance"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-5 h-5 text-slate-500"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
     </div>
 
-    <div *ngIf="data">
-        <div *ngFor="let key of ['username', 'virtualMoney']">
-            <p>{{ key }}: {{ data[key] }}</p>
+    <!-- Balance Section -->
+    <div
+      class="p-8 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white text-center"
+    >
+      <div class="flex flex-col items-center justify-center">
+        <div class="text-base font-medium opacity-90 mb-2">Current Balance</div>
+        <div class="text-5xl font-bold tracking-tight mb-2" *ngIf="data">
+          €{{ data.virtualMoney.toFixed(2) }}
         </div>
+        <div class="text-5xl font-bold tracking-tight mb-2" *ngIf="!data">
+          €0.00
+        </div>
+        <div class="text-xs opacity-80" *ngIf="data && data.updatedAt">
+          Last updated: {{ data.updatedAt | date : "medium" }}
+        </div>
+      </div>
     </div>
 
-    <!-- Input to update virtual money -->
-    <div>
-        <input [(ngModel)]="newVirtualMoney" type="number" placeholder="Enter new virtual money"
-            class="px-4 py-2 border rounded-lg w-48 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        <div class="text-left">
-            <button (click)="updateVirtualMoney()" class="btn btn-primary">Update Virtual Money</button>
-        </div>
+    <!-- Actions Section -->
+    <div class="p-6 md:p-8 flex flex-col gap-6 border-b border-slate-100">
+      <div class="flex justify-center">
+        <a
+          href="/payment"
+          class="flex items-center gap-2 py-3 px-6 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white border-none rounded-xl text-sm font-semibold cursor-pointer transition-all duration-300 shadow-md shadow-indigo-200/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-300/30 active:translate-y-0 no-underline"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-5 h-5"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Deposit Funds
+        </a>
+      </div>
     </div>
+
+    <!-- Transaction History -->
+    <div class="p-6 md:p-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-lg font-semibold text-slate-800 m-0">
+          Transaction History
+        </h2>
+        <div class="flex gap-4 text-sm">
+          <span
+            class="text-indigo-600 bg-slate-100 font-semibold px-2 py-1 rounded cursor-pointer"
+            >All</span
+          >
+          <span
+            class="text-slate-500 hover:text-indigo-600 hover:bg-slate-50 px-2 py-1 rounded cursor-pointer transition-colors duration-200"
+            >Deposits</span
+          >
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col gap-3 max-h-[400px] overflow-y-auto"
+        *ngIf="data && data.transactions && data.transactions.length > 0"
+      >
+        <div
+          *ngFor="let transaction of data.transactions; let i = index"
+          class="flex items-center p-4 bg-slate-50 rounded-xl transition-all duration-200 hover:bg-slate-100 hover:-translate-y-0.5 hover:shadow-sm animate-[fadeIn_0.3s_ease-out_forwards]"
+          [style.animation-delay]="i * 0.1 + 's'"
+        >
+          <div
+            class="w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0"
+            [ngClass]="{
+              'bg-emerald-100 text-emerald-500': transaction.amount > 0,
+              'bg-red-100 text-red-500': transaction.amount < 0
+            }"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm.53 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v5.69a.75.75 0 001.5 0v-5.69l1.72 1.72a.75.75 0 101.06-1.06l-3-3z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <div class="text-sm font-semibold text-slate-800 mb-1">
+              {{ transaction.description }}
+            </div>
+            <div class="text-xs text-slate-500">
+              {{ transaction.date | date : "MMM d, y, h:mm a" }}
+            </div>
+          </div>
+          <div
+            class="text-sm font-semibold whitespace-nowrap"
+            [ngClass]="{
+              'text-emerald-500': transaction.amount > 0,
+              'text-red-500': transaction.amount < 0
+            }"
+          >
+            {{ transaction.amount > 0 ? "+" : "" }}€{{
+              transaction.amount.toFixed(2)
+            }}
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col items-center justify-center p-8 bg-slate-50 rounded-xl text-center"
+        *ngIf="!data || !data.transactions || data.transactions.length === 0"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-12 h-12 text-slate-300 mb-4"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z"
+            clip-rule="evenodd"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <p class="text-sm text-slate-500">No transaction history available</p>
+      </div>
+    </div>
+  </div>
 </div>

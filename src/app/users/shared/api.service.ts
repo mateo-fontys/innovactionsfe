@@ -15,4 +15,8 @@ export class ApiService {
   fetchData(): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/api/users/1`);
   }
+
+  increaseVirtualMoney(userId: number): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/api/users/${userId}/increase/virtual-money`, {});
+  }
 }

@@ -3,6 +3,7 @@ import { loadStripe, StripeElements, StripeCardElement, Stripe, TokenResult } fr
 import { PaymentService } from '../shared/PaymentService';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import UserService from '../../users/shared/UserService';
 
 @Component({
   selector: 'app-payout',
@@ -40,6 +41,8 @@ export class PayoutComponent {
     } else {
       console.log('Payout successful!', result);
     }
+
+    await UserService.decreaseVirtualMoney(1, this.amount);
   }
 }
 

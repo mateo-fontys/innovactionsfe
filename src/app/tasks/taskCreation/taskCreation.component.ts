@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Router } from '@angular/router';
 import TasksService from '../shared/TasksService';
 import { CommonModule } from '@angular/common';
+import UserService from '../../users/shared/UserService';
 
 @Component({
   selector: 'app-task-creation',
@@ -39,6 +40,7 @@ export class TaskCreationComponent {
     };
 
     TasksService.CreateTask(body, this.router);
-    
+
+    UserService.decreaseVirtualMoney(1, this.budgetValue);
   }
 }
