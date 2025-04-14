@@ -9,10 +9,13 @@ variables:
   IMAGE_TAG: "$IMAGE_NAME:latest"
 
 # STEP 1: Build Angular Application (Frontend)
+# STEP 1: Build Angular Application (Frontend)
 build:
   stage: build
   image: node:18-alpine
   script:
+    - echo "=== Fixing file ownership ==="
+    - sudo chown -R $(id -u):$(id -g) .
     - echo "=== Building Angular Application ==="
     - sudo npm ci
     - sudo npm install -g @angular/cli
