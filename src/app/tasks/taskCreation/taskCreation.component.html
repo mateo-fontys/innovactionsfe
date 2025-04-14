@@ -1,14 +1,18 @@
-<div class="task-creation-container">
-  <div class="task-creation-card">
-    <div class="card-header">
-      <h1 class="card-title">Create New Task</h1>
-      <p class="card-subtitle">Fill in the details to create a new task</p>
+<div
+  class="min-h-screen flex justify-center items-start f font-sans"
+>
+  <div
+    class="w-full  bg-white  overflow-hidden mb-8 animate-[fadeIn_0.5s_ease-out_forwards]"
+  >
+    <div class="w-full bg-[var(--primary-600)] text-white text-center p-6 md:p-8">
+      <h1 >Create New Task</h1>
+      <p class="opacity-80">Fill in the details to create a new task</p>
     </div>
 
     <form #taskForm="ngForm" name="task_creation_form" class="task-form">
       <!-- Title Input -->
       <div class="form-group">
-        <label for="titleInput" class="form-label">Task Title</label>
+        <label for="titleInput" class="text-[var(--primary-600)] font-semibold">Task Title</label>
         <div class="input-wrapper">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,40 +58,47 @@
       </div>
 
       <!-- Budget Slider -->
-      <div class="form-group">
-        <label for="budgetSlider" class="form-label">Budget</label>
-        <div class="budget-display">€{{ budgetValue }}</div>
-        <input
-          type="range"
-          class="budget-slider"
-          id="budgetSlider"
-          step="50"
-          min="0"
-          max="5000"
-          [(ngModel)]="budgetValue"
-          name="budgetRange"
-        />
-        <div class="budget-range-labels">
+      <div class="flex flex-col gap-2 mb-6 w-full">
+        <label for="budgetSlider" class="text-sm font-semibold text-[var(--primary-600)] mb-1">Budget</label>
+      <div class="flex justify-center items-center gap-4 w-full mb-3">
+         <!-- Number Input -->
+         <input
+         [(ngModel)]="budgetValue"
+         type="number"
+         class="w-32 px-3 py-2 border border-gray-300 rounded-md text-center font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-300"
+         name="budgetInput"
+         min="0"
+         max="5000"
+       />
+   
+      </div>
+        <div class="flex flex-col md:flex-row items-center gap-4 w-full">
+          <!-- Slider Input -->
+          <input
+            type="range"
+            id="budgetSlider"
+            step="50"
+            min="0"
+            max="5000"
+            [(ngModel)]="budgetValue"
+            name="budgetRange"
+            class="budget-slider"
+          />
+        </div>
+      
+        <!-- Range Labels -->
+        <div class="flex justify-between text-xs text-[var(--primary-600)]">
           <span>€0</span>
           <span>€2,500</span>
           <span>€5,000</span>
         </div>
-        <div class="input-wrapper budget-input-wrapper">
-          <div class="currency-symbol">€</div>
-          <input
-            [(ngModel)]="budgetValue"
-            type="number"
-            class="form-input budget-input"
-            name="budgetInput"
-            min="0"
-            max="5000"
-          />
-        </div>
       </div>
+      
+      
 
       <!-- Company Website -->
       <div class="form-group">
-        <label for="websiteInput" class="form-label">Company Website</label>
+        <label for="websiteInput" class="text-[var(--primary-600)] font-semibold">Company Website</label>
         <div class="input-wrapper">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +143,7 @@
 
       <!-- Description -->
       <div class="form-group">
-        <label for="descriptionInput" class="form-label"
+        <label for="descriptionInput" class="text-[var(--primary-600)] font-semibold"
           >Task Description</label
         >
         <div class="textarea-wrapper">
@@ -176,7 +187,7 @@
           type="submit"
           (click)="onTaskCreation()"
           [disabled]="!taskForm.form.valid"
-          class="btn-submit"
+          class="  flex gap-2 items-center bg-gradient-to-r from-[var(--primary-600)] to-[var(--secondary-600)] hover:from-[var(--primary-700)] hover:to-[var(--secondary-700)] text-white font-medium py-3 px-4 shadow-md "
           [ngClass]="{ 'btn-disabled': !taskForm.form.valid }"
         >
           <svg

@@ -1,30 +1,30 @@
 <div
-  class="min-h-screen p-8 flex justify-center items-start bg-gradient-to-br from-slate-50 to-slate-200 font-sans"
+  class="min-h-screen flex justify-center items-start f font-sans"
 >
   <div
-    class="w-full max-w-3xl bg-white rounded-2xl shadow-xl overflow-hidden mb-8 animate-[fadeIn_0.5s_ease-out_forwards]"
+    class="w-full  bg-white rounded-2xl  overflow-hidden mb-8 animate-[fadeIn_0.5s_ease-out_forwards]"
   >
     <!-- Header Section -->
     <div
       class="p-6 md:p-8 flex justify-between items-center border-b border-slate-100"
     >
       <div class="flex flex-col">
-        <h1 class="text-2xl font-bold text-slate-800 tracking-tight m-0">
+        <p class="text-4xl font-bold text-[var(--primary-600)] tracking-tight m-0">
           Virtual Wallet
-        </h1>
-        <p class="text-sm text-slate-500 mt-1 mb-0">
+        </p>
+        <p class="text-sm text-[var(--secondary-600)] mt-1 mb-0">
           Manage your balance and make deposits
         </p>
       </div>
       <button
-        class="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:border-slate-300"
+        class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--secondary-50)] border border-[var(--secondary-200)] cursor-pointer transition-all duration-200 hover:bg-[var(--secondary-800)]hover:border-[var(--secondary-200)]"
         (click)="fetchData()"
         title="Refresh balance"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill="currentColor"
+          fill="var(--secondary-600)"
           class="w-5 h-5 text-slate-500"
         >
           <path
@@ -38,7 +38,7 @@
 
     <!-- Balance Section -->
     <div
-      class="p-8 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white text-center"
+      class="p-8  bg-[var(--primary-600)] text-white text-center"
     >
       <div class="flex flex-col items-center justify-center">
         <div class="text-base font-medium opacity-90 mb-2">Current Balance</div>
@@ -59,8 +59,8 @@
       <div class="flex justify-center">
         <a
           href="/payment"
-          class="flex items-center gap-2 py-3 px-6 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white border-none rounded-xl text-sm font-semibold cursor-pointer transition-all duration-300 shadow-md shadow-indigo-200/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-300/30 active:translate-y-0 no-underline"
-        >
+          class="  flex gap-2 items-center bg-gradient-to-r from-[var(--primary-600)] to-[var(--secondary-600)] hover:from-[var(--primary-700)] hover:to-[var(--secondary-700)] text-white font-medium py-3 px-4 shadow-md "
+          >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -81,12 +81,12 @@
     <!-- Transaction History -->
     <div class="p-6 md:p-8">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-lg font-semibold text-slate-800 m-0">
+        <p class="text-3xl font-semibold text-[var(--primary-600)] m-0">
           Transaction History
-        </h2>
+        </p>
         <div class="flex gap-4 text-sm">
           <span
-            class="text-indigo-600 bg-slate-100 font-semibold px-2 py-1 rounded cursor-pointer"
+            class="text-[var(--primary-600)] bg-slate-100 font-semibold px-2 py-1 rounded cursor-pointer"
             >All</span
           >
           <span
