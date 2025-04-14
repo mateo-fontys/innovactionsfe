@@ -14,12 +14,10 @@ build:
   stage: build
   image: node:18-alpine
   script:
-    - echo "=== Fixing file ownership ==="
-    - sudo chown -R $(id -u):$(id -g) .
     - echo "=== Building Angular Application ==="
-    - sudo npm ci
-    - sudo npm install -g @angular/cli
-    - sudo ng build --configuration=production
+    - npm ci --unsafe-perm=true
+    - npm install -g @angular/cli --unsafe-perm=true
+    - ng build --configuration=production
   artifacts:
     paths:
       - dist/
