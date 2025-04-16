@@ -1,6 +1,8 @@
   /* Form */
   .task-form {
     padding: 2rem;
+    width: 50%;
+    
   }
   
   .form-group {

@@ -31,7 +31,7 @@ export class TaskHomeComponent implements OnInit {
           id: 1,
           title: 'Complete Project Documentation',
           description: 'Write comprehensive documentation for the new feature set',
-          status: 'Completed',
+          status: 'Accepted',
           dueDate: '2023-06-15',
           priority: 'High',
           image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
@@ -40,7 +40,7 @@ export class TaskHomeComponent implements OnInit {
           id: 2,
           title: 'Design User Interface for Mobile App',
           description: 'Create wireframes and mockups for the new mobile application',
-          status: 'InProgress',
+          status: 'Pending',
           dueDate: '2023-06-20',
           priority: 'Medium',
           image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
@@ -67,7 +67,7 @@ export class TaskHomeComponent implements OnInit {
           id: 5,
           title: 'Optimize Database Queries',
           description: 'Improve performance of slow-running database operations',
-          status: 'InProgress',
+          status: 'Declined',
           dueDate: '2023-06-22',
           priority: 'Medium',
           image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
@@ -76,7 +76,7 @@ export class TaskHomeComponent implements OnInit {
           id: 6,
           title: 'Write Unit Tests',
           description: 'Create comprehensive test suite for core functionality',
-          status: 'Completed',
+          status: 'Accepted',
           dueDate: '2023-06-10',
           priority: 'Low',
           image: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
