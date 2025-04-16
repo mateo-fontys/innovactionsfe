@@ -1,54 +1,196 @@
-<div class="w-100 px-4">
-    <div class="mt-3 row">
-        <div class="d-flex align-items-center w-100 justify-content-center gap-3 flex-wrap">
-            <button class="btn btn-success" (click)="navigateToCreate()">Create</button>
+<div class="p-8 max-w-7xl mx-auto font-sans">
+  <!-- Header Section -->
+  <div class="mb-8 text-center">
+    <p class="text-4xl font-bold text-[var(--primary-700)] mb-2 ">
+      Tasks
+    </p>
+    <p class=" text-[var(--secondary-700)] max-w-[600px] mx-auto">
+      Choose a task to do
+    </p>
+  </div>
 
-            <div class="w-full max-w-sm min-w-[200px]">
-                <div class="relative flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                        class="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
-                        <path fill-rule="evenodd"
-                            d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-                            clip-rule="evenodd" />
-                    </svg>
+  <!-- Action Bar -->
+  <div class="flex flex-wrap gap-4 mb-8 justify-between items-center">
+    <button
+      class="flex items-center gap-2 bg-gradient-to-r from-[var(--primary-600)] to-[var(--secondary-600)] hover:from-[var(--primary-700)] hover:to-[var(--secondary-700)] text-white font-medium py-3 px-4 shadow-md border-none py-3 px-6 rounded-xl font-semibold text-sm cursor-pointer transition-all duration-300 shadow-md shadow-indigo-200/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-300/30 active:translate-y-0"
+      (click)="navigateToCreate()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-5 h-5"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      Create Task
+    </button>
 
-                    <input
-                        class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                        placeholder="UI Kits, Dashboards..." />
-
-                    <button
-                        class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                        type="button">
-                        Search
-                    </button>
-                </div>
-            </div>
-
+    <div class="flex-1 max-w-lg min-w-[250px]">
+      <div class="relative flex gap-2 items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="absolute left-4 w-5 h-5 text-slate-400 pointer-events-none"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <input
+          class="flex-1 py-3 pl-12 pr-4 border border-slate-200 rounded-xl text-sm bg-white text-slate-800 transition-all duration-300 shadow-sm focus:outline-none focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-100/10 placeholder:text-slate-400"
+          placeholder="Search tasks..."
+        />
+        <div class="p-[2px] bg-gradient-to-r from-[var(--secondary-600)] to-[var(--primary-600)]">
+          <button class="bg-white text-[var(--primary-600)] rounded-md px-4 py-3 w-full h-full">
+            Search
+          </button>
         </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Section -->
+  <div class="relative min-h-[300px]">
+    <!-- Loading State -->
+    <div
+      *ngIf="isLoading"
+      class="flex flex-col items-center justify-center py-16"
+    >
+      <div
+        class="w-12 h-12 border-3 border-slate-200 border-t-indigo-500 rounded-full animate-spin mb-4"
+      ></div>
+      <p class="text-slate-500 text-sm">Loading your tasks...</p>
     </div>
 
-    <div>
-        <div *ngIf="isLoading">Loading tasks...</div>
-
-        <div *ngIf="!isLoading">
-            <div class="mt-4 row p-1" *ngIf="tasks.length > 0; else noTasks">
-                <div class="mt-2 col-sm-12 col-md-4" *ngFor="let task of tasks">
-                    <div class="card border-secondary">
-                        <img src="data:image/png;base64,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"
-                            class="card-img-top" alt="...">
-
-                        <div class="card-body border-secondary border-top">
-                            <h5 class="card-title">{{ task.title }}</h5>
-                            <p class="card-text">Status: {{ task.status }}</p>
-                            <a class="btn btn-primary">Go somewhere now</a>
-                        </div>
-                    </div>
-                </div>
+    <!-- Tasks Grid -->
+    <div *ngIf="!isLoading" class="relative" [class.empty]="tasks.length === 0">
+      <div
+        *ngIf="tasks.length > 0; else noTasks"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 perspective-1000"
+      >
+        <div
+          *ngFor="let task of tasks; let i = index"
+          class="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 h-full flex flex-col animate-[fadeIn_0.3s_ease-out_forwards] hover:-translate-y-1 hover:shadow-lg"
+          [style.animation-delay]="i * 0.1 + 's'"
+        >
+          <div class="relative h-[150px] overflow-hidden">
+            <div
+              class="absolute top-3 right-3 py-1 px-3 rounded-full text-xs font-semibold uppercase z-10 shadow-sm"
+              [ngClass]="{
+                'bg-emerald-500 text-white':
+                  task.status.toLowerCase() === 'accepted',
+                'bg-amber-500 text-white':
+                  task.status.toLowerCase() === 'pending',
+                'bg-red-500 text-white':
+                  task.status.toLowerCase() === 'declined'
+              }"
+            >
+              {{ task.status }}
             </div>
-
-            <ng-template #noTasks>
-                <p>No tasks available for this creator.</p>
-            </ng-template>
+            <img
+              [src]="task.image || 'https://via.placeholder.com/300x150'"
+              class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+              [alt]="task.title + ' image'"
+            />
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3
+              class="text-lg font-semibold text-slate-800 mb-3 leading-relaxed"
+            >
+              {{ task.title }}
+            </h3>
+            <div class="mb-6 flex-1">
+             
+              <div class="flex items-center gap-2 mb-2 text-slate-500 text-sm">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-4 h-4 flex-shrink-0"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span
+                  >Difficulty:
+                  <span
+                    [ngClass]="{
+                      'text-red-500 font-semibold':
+                        task.priority.toLowerCase() === 'high',
+                      'text-amber-500 font-semibold':
+                        task.priority.toLowerCase() === 'medium',
+                      'text-emerald-500 font-semibold':
+                        task.priority.toLowerCase() === 'low'
+                    }"
+                  >
+                    {{ task.priority }}
+                  </span>
+                </span>
+              </div>
+              <p
+                class="mt-3 text-sm text-slate-500 leading-relaxed line-clamp-2 overflow-hidden text-ellipsis"
+              >
+                {{ task.description }}
+              </p>
+            </div>
+           
+            <div class="p-[2px] bg-gradient-to-r from-[var(--secondary-600)] to-[var(--primary-600)]">
+              <button class="bg-white text-[var(--primary-600)] rounded-md px-4 py-3 w-full h-full">
+                View Details
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- No Tasks Template -->
+      <ng-template #noTasks>
+        <div
+          class="flex flex-col items-center justify-center py-16 px-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-16 h-16 text-slate-400 mb-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z"
+              clip-rule="evenodd"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <h3 class="text-2xl font-semibold text-slate-800 mb-3">
+            No tasks available
+          </h3>
+          <p class="text-slate-500 max-w-md mx-auto mb-8">
+            You don't have any tasks yet. Create your first task to get started.
+          </p>
+          <button
+            class="py-3 px-6 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white border-none rounded-xl text-sm font-semibold cursor-pointer transition-all duration-300 shadow-md shadow-indigo-200/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-300/30"
+            (click)="navigateToCreate()"
+          >
+            Create Your First Task
+          </button>
+        </div>
+      </ng-template>
     </div>
+  </div>
 </div>

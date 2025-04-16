@@ -1,60 +1,210 @@
-<div class="w-75 px-4" style="margin: auto;">
-    <h2>Create task</h2>
-    <div class="col-12">
-        <form #taskForm="ngForm" name="task_creation_form" class="col-12">
-            <!-- Title -->
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Title</label>
-                <input required type="text" [(ngModel)]="title" name="title" class="form-control" 
-                    #titleInput="ngModel" id="exampleFormControlInput1" placeholder="Title">
-                <div *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)" class="text-danger">
-                    <small>Title is required</small>
-                </div>
-            </div>
-
-            <!-- Date Picker (assumed already bound inside ngbd-datepicker-multiple)
-                <ngbd-datepicker-multiple [(ngModel)]="selectedDates" name="dates" /> -->
-
-            <br />
-
-            <!-- Budget -->
-            <label for="customRange1" class="form-label">Budget: €{{budgetValue}}</label>
-            <input type="range" class="form-range" id="customRange1" step="1" min="0" max="5000"
-                [(ngModel)]="budgetValue" name="budgetRange">
-            <div class="input-group">
-                <div class="input-group-append">
-                    <span class="input-group-text">€</span>
-                </div>
-                <input [(ngModel)]="budgetValue" type="text" class="form-control" name="budgetInput">
-            </div>
-            <br />
-
-            <!-- Company Website -->
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Company website</label>
-                <input required type="text" [(ngModel)]="link" name="link" class="form-control" 
-                    #linkInput="ngModel" id="exampleFormControlInput1" placeholder="www.company.com">
-                <div *ngIf="linkInput.invalid && (linkInput.dirty || linkInput.touched)" class="text-danger">
-                    <small>Company website is required</small>
-                </div>
-            </div>
-
-            <br />
-
-            <!-- Description -->
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Description</label>
-                <textarea required class="form-control" [(ngModel)]="description" name="description"
-                    #descInput="ngModel" id="exampleFormControlTextarea1" rows="5"></textarea>
-                <div *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)" class="text-danger">
-                    <small>Description is required</small>
-                </div>
-            </div>
-        </form>
-
-        <div class="mt-3 d-flex justify-content-center text-center gap-3">
-            <button (click)="onTaskCreation()" [disabled]="!taskForm.form.valid" class="btn btn-primary">Submit</button>
-            <button (click)="onTaskAbort()" class="btn btn-danger">Cancel</button>
-        </div>
+<div
+  class="min-h-screen flex justify-center items-start f font-sans"
+>
+  <div
+    class="w-full  bg-white  overflow-hidden mb-8 animate-[fadeIn_0.5s_ease-out_forwards] flex flex-col items-center"
+  >
+    <div class="w-full bg-[var(--primary-600)] text-white text-center p-6 md:p-8">
+      <h1 >Create New Task</h1>
+      <p class="opacity-80">Fill in the details to create a new task</p>
     </div>
+
+    <form #taskForm="ngForm" name="task_creation_form" class="task-form">
+      <!-- Title Input -->
+      <div class="form-group">
+        <label for="titleInput" class="text-[var(--primary-600)] font-semibold">Task Title</label>
+        <div class="input-wrapper">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="input-icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.097 1.515a.75.75 0 01.589.882L10.666 7.5h4.47l1.079-5.397a.75.75 0 111.47.294L16.665 7.5h3.585a.75.75 0 010 1.5h-3.885l-1.2 6h3.585a.75.75 0 010 1.5h-3.885l-1.08 5.397a.75.75 0 11-1.47-.294l1.02-5.103h-4.47l-1.08 5.397a.75.75 0 01-1.47-.294l1.02-5.103H3.75a.75.75 0 010-1.5h3.885l1.2-6H5.25a.75.75 0 010-1.5h3.885l1.08-5.397a.75.75 0 01.882-.588zM10.365 9l-1.2 6h4.47l1.2-6h-4.47z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <input
+            required
+            type="text"
+            [(ngModel)]="title"
+            name="title"
+            class="form-input"
+            #titleInput="ngModel"
+            id="titleInput"
+            placeholder="Enter task title"
+          />
+        </div>
+        <div
+          *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)"
+          class="error-message"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="error-icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Title is required
+        </div>
+      </div>
+
+      <!-- Budget Slider -->
+      <div class="flex flex-col gap-2 mb-6 w-full">
+        <label for="budgetSlider" class="text-sm font-semibold text-[var(--primary-600)] mb-1">Budget</label>
+      <div class="flex justify-center items-center gap-4 w-full mb-3">
+         <!-- Number Input -->
+         <input
+         [(ngModel)]="budgetValue"
+         type="number"
+         class="w-32 px-3 py-2 border border-gray-300 rounded-md text-center font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-300"
+         name="budgetInput"
+         min="0"
+         max="5000"
+       />
+   
+      </div>
+        <div class="flex flex-col md:flex-row items-center gap-4 w-full">
+          <!-- Slider Input -->
+          <input
+            type="range"
+            id="budgetSlider"
+            step="50"
+            min="0"
+            max="5000"
+            [(ngModel)]="budgetValue"
+            name="budgetRange"
+            class="budget-slider"
+          />
+        </div>
+      
+        <!-- Range Labels -->
+        <div class="flex justify-between text-xs text-[var(--primary-600)]">
+          <span>€0</span>
+          <span>€2,500</span>
+          <span>€5,000</span>
+        </div>
+      </div>
+      
+      
+
+      <!-- Company Website -->
+      <div class="form-group">
+        <label for="websiteInput" class="text-[var(--primary-600)] font-semibold">Company Website</label>
+        <div class="input-wrapper">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="input-icon"
+          >
+            <path
+              d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605zM7.777 15.23a18.87 18.87 0 01-.214-4.774 12.753 12.753 0 01-4.34-2.708 9.711 9.711 0 00-.944 5.004 17.165 17.165 0 005.498 2.477zM21.356 14.752a9.765 9.765 0 01-7.478 6.817 18.64 18.64 0 001.988-4.718 18.627 18.627 0 005.49-2.098zM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 001.988 4.718 9.765 9.765 0 01-7.478-6.816zM13.878 2.43a9.755 9.755 0 016.116 3.986 11.267 11.267 0 01-3.746 2.504 18.63 18.63 0 00-2.37-6.49zM12 2.276a17.152 17.152 0 012.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0112 2.276zM10.122 2.43a18.629 18.629 0 00-2.37 6.49 11.266 11.266 0 01-3.746-2.504 9.754 9.754 0 016.116-3.985z"
+            />
+          </svg>
+          <input
+            required
+            type="text"
+            [(ngModel)]="link"
+            name="link"
+            class="form-input"
+            #linkInput="ngModel"
+            id="websiteInput"
+            placeholder="www.company.com"
+          />
+        </div>
+        <div
+          *ngIf="linkInput.invalid && (linkInput.dirty || linkInput.touched)"
+          class="error-message"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="error-icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Company website is required
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="descriptionInput" class="text-[var(--primary-600)] font-semibold"
+          >Task Description</label
+        >
+        <div class="textarea-wrapper">
+          <textarea
+            required
+            class="form-textarea"
+            [(ngModel)]="description"
+            name="description"
+            #descInput="ngModel"
+            id="descriptionInput"
+            rows="5"
+            placeholder="Describe the task in detail..."
+          ></textarea>
+        </div>
+        <div
+          *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)"
+          class="error-message"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="error-icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Description is required
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" (click)="onTaskAbort()" class="btn-cancel">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          (click)="onTaskCreation()"
+          [disabled]="!taskForm.form.valid"
+          class="  flex gap-2 items-center bg-gradient-to-r from-[var(--primary-600)] to-[var(--secondary-600)] hover:from-[var(--primary-700)] hover:to-[var(--secondary-700)] text-white font-medium py-3 px-4 shadow-md "
+          [ngClass]="{ 'btn-disabled': !taskForm.form.valid }"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="btn-icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Create Task
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
