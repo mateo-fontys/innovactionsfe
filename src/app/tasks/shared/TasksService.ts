@@ -86,6 +86,7 @@ import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Task } from '../shared/TaskModel';
 import { environment } from '../../../environments/environment';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root',
@@ -99,6 +100,7 @@ export class TasksService {
   constructor(private http: HttpClient, private router: Router) {}
 
   createTask(body: Task): void {
+    console.log(body)
     this.http.post<Task>(this.apiUrl, body).subscribe({
       next: (response) => {
         console.log('Task created successfully:', response);
@@ -111,6 +113,7 @@ export class TasksService {
     });
   }
 
+  
   getTaskById(id: string): Observable<Task> {
     return this.http.get<Task>(`${this.apiUrl}/${id}`);
   }

@@ -94,6 +94,69 @@
         </div>
       </div>
       
+     <!-- Difficulty Selection -->
+<div class="form-group mb-6 w-full">
+  <label class="text-[var(--primary-600)] font-semibold mb-2 block">Difficulty</label>
+  <div class="flex flex-row gap-4 justify-center py-4">
+    
+    <label class="flex items-center gap-2 cursor-pointer">
+      <input
+        type="radio"
+        name="difficulty"
+        [(ngModel)]="difficulty"
+        value="LOW"
+        class="hidden peer"
+      />
+      <span
+        class="px-4 py-2 border rounded-full font-medium transition
+              bg-gray-100 text-gray-800
+              hover:bg-[var(--primary-100)]
+              peer-checked:bg-[var(--primary-600)] peer-checked:text-white"
+      >
+        Low
+      </span>
+    </label>
+
+    <label class="flex items-center gap-2 cursor-pointer">
+      <input
+        type="radio"
+        name="difficulty"
+        [(ngModel)]="difficulty"
+        value="MEDIUM"
+        class="hidden peer"
+      />
+      <span
+        class="px-4 py-2 border rounded-full font-medium transition
+              bg-gray-100 text-gray-800
+              hover:bg-[var(--primary-100)]
+              peer-checked:bg-[var(--primary-600)] peer-checked:text-white"
+      >
+        Medium
+      </span>
+    </label>
+
+    <label class="flex items-center gap-2 cursor-pointer">
+      <input
+        type="radio"
+        name="difficulty"
+        [(ngModel)]="difficulty"
+        value="HIGH"
+        class="hidden peer"
+      />
+      <span
+        class="px-4 py-2 border rounded-full font-medium transition
+              bg-gray-100 text-gray-800
+              hover:bg-[var(--primary-100)]
+              peer-checked:bg-[var(--primary-600)] peer-checked:text-white"
+      >
+        High
+      </span>
+    </label>
+
+  </div>
+</div>
+
+
       
 
       <!-- Company Website -->

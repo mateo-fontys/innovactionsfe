@@ -3,7 +3,6 @@ import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaymentService } from '../shared/PaymentService';
-import { ApiService } from '../../users/shared/api.service'; // Adjust the import path as necessary
 import UserService from '../../users/shared/UserService';
 
 @Component({

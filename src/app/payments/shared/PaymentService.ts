@@ -4,7 +4,7 @@ import { environment } from  '../../../environments/environment';
 
 async function deposit(amount: number, currency: string){
 
-    const response = await axios.post(`${environment.apiUrl}/api/payment/deposit`, {
+    const response = await axios.post(`${environment.apiUrl}/payment/deposit`, {
         amount: amount,
         currency: currency
     });
@@ -13,7 +13,7 @@ async function deposit(amount: number, currency: string){
 }
 
 async function withdraw(recipientEmail: string, amount : number, currency: string){
-        const response = await axios.post(`${environment.apiUrl}/api/payment/withdraw`, {
+        const response = await axios.post(`${environment.apiUrl}/payment/withdraw`, {
             recipientEmail: recipientEmail,
             amount: amount,
             currency: currency

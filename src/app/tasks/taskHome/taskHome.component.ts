@@ -33,7 +33,7 @@ export class TaskHomeComponent implements OnInit {
   }
 
   fetchTasks() {
-    const creatorId = 1; // replace with actual creator ID if needed
+    const creatorId = 1;
     this.isLoading = true;
 
     this.tasksService.getTasksFromCreator(creatorId).subscribe({

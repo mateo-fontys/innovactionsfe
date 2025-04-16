@@ -5,5 +5,7 @@ export interface Task {
     payout: number;
     budget: number;
     link: string; 
-    status?: 'pending' | 'in_progress' | 'completed';
+    image?: string;
+    difficulty: 'HIGH' | 'MEDIUM' | 'LOW';
+    status?: 'ACCEPTED' | 'PENDING' | 'DECLINED' | 'DEACTIVATED';
   }

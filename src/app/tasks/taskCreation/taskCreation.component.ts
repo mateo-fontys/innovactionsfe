@@ -15,6 +15,8 @@ import UserService from '../../users/shared/UserService';
     FormsModule
   ]
 })
+
+
 export class TaskCreationComponent {
 
   constructor(private router: Router, private tasksService: TasksService) {}
@@ -23,6 +25,7 @@ export class TaskCreationComponent {
   budget: number = 2500;
   link: string = '';
   description: string = '';
+  difficulty: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW'; 
 
   onTaskAbort() {
     this.router.navigate(['/task-home']);
@@ -35,18 +38,18 @@ export class TaskCreationComponent {
       link: this.link,
       description: this.description,
       payout: 0,
+      difficulty: this.difficulty,
       creator:{
-      
       id: 1,
       username: 'Bob',           
       virtualMoney: 100 
       }
     };
 
-    // TasksService.createTask(body, this.router);
+    this.tasksService.createTask(body);
 
-    // UserService.decreaseVirtualMoney(1, this.budgetValue);
-    this.tasksService.createTask(body); 
+    UserService.decreaseVirtualMoney(1, this.budget);
+   
   }
 }
 
