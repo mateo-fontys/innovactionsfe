@@ -63,7 +63,7 @@
       <div class="flex justify-center items-center gap-4 w-full mb-3">
          <!-- Number Input -->
          <input
-         [(ngModel)]="budgetValue"
+         [(ngModel)]="budget"
          type="number"
          class="w-32 px-3 py-2 border border-gray-300 rounded-md text-center font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-300"
          name="budgetInput"
@@ -80,7 +80,7 @@
             step="50"
             min="0"
             max="5000"
-            [(ngModel)]="budgetValue"
+            [(ngModel)]="budget"
             name="budgetRange"
             class="budget-slider"
           />

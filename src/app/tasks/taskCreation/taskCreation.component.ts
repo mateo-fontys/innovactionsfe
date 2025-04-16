@@ -19,7 +19,7 @@ export class TaskCreationComponent {
 
   constructor(private router: Router, private tasksService: TasksService) {}
 
-  title: string = '';
+  title: string = ''; 
   budget: number = 2500;
   link: string = '';
   description: string = '';
@@ -43,9 +43,9 @@ export class TaskCreationComponent {
       }
     };
 
-    TasksService.CreateTask(body, this.router);
+    // TasksService.createTask(body, this.router);
 
-    UserService.decreaseVirtualMoney(1, this.budgetValue);
+    // UserService.decreaseVirtualMoney(1, this.budgetValue);
     this.tasksService.createTask(body); 
   }
 }

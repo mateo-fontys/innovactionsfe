@@ -77,7 +77,7 @@
         *ngIf="tasks.length > 0; else noTasks"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 perspective-1000"
       >
-        <div
+        <!-- <div
           *ngFor="let task of tasks; let i = index"
           class="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 h-full flex flex-col animate-[fadeIn_0.3s_ease-out_forwards] hover:-translate-y-1 hover:shadow-lg"
           [style.animation-delay]="i * 0.1 + 's'"
@@ -152,7 +152,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- No Tasks Template -->
