@@ -12,13 +12,24 @@ import { PaymentService } from '../shared/PaymentService';
 })
 
 export class PaymentComponent implements OnInit {
-
-
   stripe: Stripe | null = null;
   elements: StripeElements | null = null;
   card: any;
-  amount: number = 500;
-  currency: string = 'usd';
+  amount: number = 50;
+  currency: string = 'eur';
+  
+  limitDecimals(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+  
+    if (value.includes('.')) {
+      const [whole, decimal] = value.split('.');
+      if (decimal.length > 2) {
+        input.value = `${whole}.${decimal.slice(0, 2)}`;
+        this.amount = parseFloat(input.value);
+      }
+    }
+  }
 
   async ngOnInit() {
     this.stripe = await loadStripe('pk_test_51R3cJuGhJZbsy2ABv0DEcpfLR0fYkSfNOG9tZZdEAuIRhzI8WLF0ogRbAqvZwkKaWpARRja7kyJpmWX9XII2g4G100e4FlPH8L');  // Replace with your public Stripe key
@@ -29,6 +40,17 @@ export class PaymentComponent implements OnInit {
       this.card = this.elements.create('card');
       this.card.mount('#card-element');
     }
+
+    this.card.addEventListener('change', (event: any) => {
+      const displayError = document.getElementById('card-errors');
+      if (displayError) {
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      }
+    });
   }
 
   async sendPayment() {
@@ -36,7 +58,6 @@ export class PaymentComponent implements OnInit {
       return;
     }
     const { clientSecret } = await PaymentService.deposit(this.amount, this.currency);
-    console.log(clientSecret)
 
         const { error, paymentIntent } = await this.stripe!.confirmCardPayment(clientSecret, {
           payment_method: {

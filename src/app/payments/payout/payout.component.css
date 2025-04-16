@@ -1,0 +1,53 @@
+form {
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    transform: translateY(-1px);
+    transition: transform 0.2s ease;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+    }
+  }
+  
+  button[type="submit"]:hover {
+    animation: pulse 2s infinite;
+  }
+  
+  * {
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+  }
+  
+  input::placeholder {
+    transition: opacity 0.2s ease;
+  }
+  
+  input:focus::placeholder {
+    opacity: 0.5;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }

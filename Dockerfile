@@ -1,19 +1,31 @@
-FROM node:23-alpine3.20 AS build
+# Build stage
+FROM node:18.19-alpine AS builder
 
-WORKDIR /innovactions_frontend
+# Set working directory
+WORKDIR /app
 
-COPY package*.json ./
+# Copy package files
+COPY package.json package-lock.json ./
 
-RUN npm install
+# Clean install dependencies
+RUN npm ci --legacy-peer-deps
 
-RUN npm install -g @angular/cli
-
+# Copy project files
 COPY . .
 
-RUN ng build --configuration=production
+# Build the application
+RUN npm run build -- --configuration production
 
-FROM nginx:latest
+# Production stage
+FROM nginx:alpine
 
-COPY --from=build innovactions_frontend/dist/innovactions_frontend/browser /usr/share/nginx/html
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Copy built assets
+COPY --from=builder /app/dist/innovactions_frontend/browser /usr/share/nginx/html
+
+# Make port 8080 available (Azure requirement)
 EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
