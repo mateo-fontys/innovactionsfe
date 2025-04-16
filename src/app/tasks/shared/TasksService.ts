@@ -83,7 +83,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Task } from '../shared/TaskModel';
 import { environment } from '../../../environments/environment';
 
@@ -91,7 +91,10 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class TasksService {
-  private apiUrl = `${environment.apiUrl}/api/tasks`;
+  private apiUrl = `${environment.apiUrl}/tasks`;
+
+  private tasksRefreshSubject = new BehaviorSubject<void>(undefined);
+  tasksRefresh$ = this.tasksRefreshSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -99,6 +102,7 @@ export class TasksService {
     this.http.post<Task>(this.apiUrl, body).subscribe({
       next: (response) => {
         console.log('Task created successfully:', response);
+        this.tasksRefreshSubject.next();
         this.router.navigate(['/task-home']);
       },
       error: (error) => {

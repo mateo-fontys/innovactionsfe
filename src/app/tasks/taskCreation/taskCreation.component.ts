@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NgbdDatepickerMultiple } from "../../utilities/dateTimePicker/dateTimePicker";
 import { FormsModule } from '@angular/forms';
-import axios from 'axios';
 import { Router } from '@angular/router';
-import TasksService from '../shared/TasksService';
+import { TasksService } from '../shared/TasksService';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,27 +16,34 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskCreationComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private tasksService: TasksService) {}
 
-  title: string = ''
-  budgetValue: number = 2500;
+  title: string = '';
+  budget: number = 2500;
   link: string = '';
   description: string = '';
 
-  onTaskAbort(){
+  onTaskAbort() {
     this.router.navigate(['/task-home']);
   }
 
   onTaskCreation() {
-
     const body = {
       title: this.title,
-      budget: this.budgetValue,
+      budget: this.budget,
       link: this.link,
-      description: this.description
+      description: this.description,
+      payout: 0,
+      creator:{
+      
+      id: 1,
+      username: 'Bob',           
+      virtualMoney: 100 
+      }
     };
 
-    TasksService.CreateTask(body, this.router);
-    
+    this.tasksService.createTask(body); 
   }
 }
+
+

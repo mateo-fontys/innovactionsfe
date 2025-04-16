@@ -1,5 +1,5 @@
 export interface Task {
-    id?: string; // optional for creation
+    id?: number; // optional for creation
     title: string;
     description: string;
     payout: number;

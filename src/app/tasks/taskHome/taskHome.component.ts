@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import TasksService from '../shared/TasksService';
 import { CommonModule } from '@angular/common';
+import { TasksService } from '../shared/TasksService';
+import { Task } from '../shared/TaskModel';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-home',
@@ -11,39 +13,47 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class TaskHomeComponent implements OnInit {
-  tasks: any[] = [];
+  tasks: Task[] = [];
   isLoading: boolean = true;
+  private subscriptions: Subscription = new Subscription();
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private tasksService: TasksService
+  ) {}
 
   ngOnInit(): void {
-    this.fetchTasks();  // Call fetchTasks when the component initializes
+    this.fetchTasks();
+
+    this.subscriptions.add(
+      this.tasksService.tasksRefresh$.subscribe(() => {
+        this.fetchTasks();
+      })
+    );
   }
 
-  async fetchTasks() {
-    const creatorId = 1;
+  fetchTasks() {
+    const creatorId = 1; // replace with actual creator ID if needed
     this.isLoading = true;
-  
-    try {
-      // Fetch tasks from the service
-      const data = await TasksService.GetTasksFromCreator(creatorId);
-  
-      // If the data is fetched successfully
-      if (data && Array.isArray(data)) {
-        this.tasks = data;  // Assign the fetched tasks to the component's tasks array
-      } else {
-        console.error('Unexpected data format:', data);
+
+    this.tasksService.getTasksFromCreator(creatorId).subscribe({
+      next: (data) => {
+        this.tasks = data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching tasks:', error);
+        this.isLoading = false;
       }
-    } catch (error) {
-      // Handle the error if the fetch fails
-      console.error('Error fetching tasks:', error);
-    } finally {
-      // Set loading status to false after data is fetched (or error occurs)
-      this.isLoading = false;
-    }
+    });
   }
 
   navigateToCreate() {
-    this.router.navigate(['/task-creation']); // Adjust this path according to your routing configuration
+    this.router.navigate(['/task-creation']);
+  }
+
+  navigateToUpdate(taskId: string): void {
+    this.router.navigate(['/update-task', taskId]);
   }
 }
+

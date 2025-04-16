@@ -18,14 +18,14 @@
             <br />
 
             <!-- Budget -->
-            <label for="customRange1" class="form-label">Budget: €{{budgetValue}}</label>
+            <label for="customRange1" class="form-label">Budget: €{{budget}}</label>
             <input type="range" class="form-range" id="customRange1" step="1" min="0" max="5000"
-                [(ngModel)]="budgetValue" name="budgetRange">
+                [(ngModel)]="budget" name="budgetRange">
             <div class="input-group">
                 <div class="input-group-append">
                     <span class="input-group-text">€</span>
                 </div>
-                <input [(ngModel)]="budgetValue" type="text" class="form-control" name="budgetInput">
+                <input [(ngModel)]="budget" type="text" class="form-control" name="budgetInput">
             </div>
             <br />
 
