@@ -51,7 +51,6 @@ dockerize:
     - sudo docker push $IMAGE_TAG
   only:
     - main
-    - develop
 
 # STEP 3: Deploy Container to Azure App Service
 deploy:
@@ -70,4 +69,3 @@ deploy:
     # - az webapp restart --name "$AZURE_APP_NAME" --resource-group "$AZURE_RESOURCE_GROUP"
   only:
     - main
-    - develop
