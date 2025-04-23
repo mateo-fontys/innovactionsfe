@@ -26,6 +26,6 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/innovactions_frontend/browser /usr/share/nginx/html
 
 # Make port 8080 available (Azure requirement)
-EXPOSE 80
+EXPOSE 4200
 
 CMD ["nginx", "-g", "daemon off;"]
