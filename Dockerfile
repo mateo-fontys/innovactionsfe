@@ -14,7 +14,7 @@ RUN npm ci --legacy-peer-deps
 COPY . .
 
 # Build the application
-RUN npm run build -- --configuration production --vendor-chunk=false --output-hashing=all --build-optimizer=true
+RUN npm run build -- --configuration production
 
 # Production stage
 FROM nginx:alpine

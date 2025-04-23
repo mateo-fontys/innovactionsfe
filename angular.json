@@ -16,7 +16,9 @@
             "outputPath": "dist/innovactions_frontend",
             "index": "src/index.html",
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
+              "includePaths": [
+                "src/styles"
+              ]
             },
             "browser": "src/main.ts",
             "polyfills": [
@@ -45,6 +47,7 @@
           },
           "configurations": {
             "production": {
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "initial",
@@ -57,7 +60,6 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
             },
             "development": {
               "optimization": false,
@@ -84,7 +86,6 @@
             },
             "development": {
               "buildTarget": "innovactions_frontend:build:development"
-
             }
           },
           "defaultConfiguration": "development"
