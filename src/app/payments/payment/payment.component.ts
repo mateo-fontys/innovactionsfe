@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaymentService } from '../shared/PaymentService';
 import UserService from '../../users/shared/UserService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -31,6 +32,7 @@ export class PaymentComponent implements OnInit {
       }
     }
   }
+  constructor(private router: Router) {}
 
   async ngOnInit() {
     this.stripe = await loadStripe('pk_test_51R3cJuGhJZbsy2ABv0DEcpfLR0fYkSfNOG9tZZdEAuIRhzI8WLF0ogRbAqvZwkKaWpARRja7kyJpmWX9XII2g4G100e4FlPH8L');  // Replace with your public Stripe key
@@ -70,9 +72,14 @@ export class PaymentComponent implements OnInit {
           console.error(error);
         } else if (paymentIntent && paymentIntent.status === 'succeeded') {
           console.log('Payment successful!');
+          
+        await UserService.increaseVirtualMoney(1, this.amount);
+
+          this.router.navigate(['/user-overview']); 
         }
 
-        await UserService.increaseVirtualMoney(1, this.amount);
+
+
 
   }
 }

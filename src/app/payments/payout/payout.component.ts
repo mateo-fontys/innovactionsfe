@@ -4,6 +4,7 @@ import { PaymentService } from '../shared/PaymentService';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import UserService from '../../users/shared/UserService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payout',
@@ -17,7 +18,7 @@ export class PayoutComponent {
   recipientEmail: string = '';
   amount: number = 5;
   currency: string = 'eur';
-
+  constructor(private router: Router) {}
   
   limitDecimals(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -43,6 +44,8 @@ export class PayoutComponent {
     }
 
     await UserService.decreaseVirtualMoney(1, this.amount);
+
+    this.router.navigate(['/user-overview']); 
   }
 }
 
