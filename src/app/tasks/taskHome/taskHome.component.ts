@@ -55,5 +55,9 @@ export class TaskHomeComponent implements OnInit {
   navigateToUpdate(taskId: string): void {
     this.router.navigate(['/update-task', taskId]);
   }
+
+  navigateToReportPage() {
+    this.router.navigate(['/report'])
+  }
 }
 

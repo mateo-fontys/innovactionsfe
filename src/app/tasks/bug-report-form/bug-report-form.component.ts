@@ -3,6 +3,7 @@ import { FormsModule } from "@angular/forms"
 import { CommonModule } from "@angular/common"
 import { environment } from "../../../environments/environment"
 import { HttpClient } from "@angular/common/http"
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-report-form",
@@ -20,7 +21,7 @@ export class BugReportFormComponent {
   isSuccess = false
   errorMessage = ""
 
-  constructor(private http: HttpClient) {}
+constructor(private http: HttpClient, private router: Router) {}
 
   submitReport(): void {
     // Validate input
@@ -46,10 +47,7 @@ export class BugReportFormComponent {
         this.isSuccess = true
         this.reportText = ""
 
-        // Reset success message after 3 seconds
-        setTimeout(() => {
-          this.isSuccess = false
-        }, 3000)
+        this.router.navigate(['/task-home'])
       },
       (error) => {
         console.error("Error submitting bug report:", error)
