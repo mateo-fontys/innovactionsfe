@@ -1,40 +1,61 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment';
+import { Component } from "@angular/core"
+import { FormsModule } from "@angular/forms"
+import { CommonModule } from "@angular/common"
+import { environment } from "../../../environments/environment"
+import { HttpClient } from "@angular/common/http"
 
 @Component({
-  selector: 'app-report-form',
+  selector: "app-report-form",
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule],
-  templateUrl: './bug-report-form.component.html',
-  styleUrls: ['./bug-report-form.component.css']
+  imports: [FormsModule, CommonModule,],
+  templateUrl: "./bug-report-form.component.html",
+  styleUrls: ["./bug-report-form.component.css"],
 })
-
 export class BugReportFormComponent {
-  reportText: string = '';
-  userId: number = 1;
-  taskId: number = 101;
-  apiUrl: string = `${environment.apiUrl}/api/report`;
+  reportText = ""
+  userId = 1
+  taskId = 101
+  apiUrl = `${environment.apiUrl}/report`
+  isSubmitting = false
+  isSuccess = false
+  errorMessage = ""
 
   constructor(private http: HttpClient) {}
 
-  submitReport() {
+  submitReport(): void {
+    // Validate input
+    if (!this.reportText.trim()) {
+      this.errorMessage = "Please enter a bug report before submitting"
+      return
+    }
+
+    this.isSubmitting = true
+    this.errorMessage = ""
+
     const newReport = {
       userId: this.userId,
       taskId: this.taskId,
       reportText: this.reportText,
-      status: 'PENDING'
-    };
+      status: "PENDING",
+    }
 
-    this.http.post(this.apiUrl, newReport).subscribe(response => {
-      console.log('Bug report submitted:', response);
-      alert('Bug report submitted successfully!');
-      this.reportText = '';
-    }, error => {
-      console.error('Error submitting bug report:', error);
-      alert('Failed to submit the bug report');
-    });
+    this.http.post(this.apiUrl, newReport).subscribe(
+      (response) => {
+        console.log("Bug report submitted:", response)
+        this.isSubmitting = false
+        this.isSuccess = true
+        this.reportText = ""
+
+        // Reset success message after 3 seconds
+        setTimeout(() => {
+          this.isSuccess = false
+        }, 3000)
+      },
+      (error) => {
+        console.error("Error submitting bug report:", error)
+        this.isSubmitting = false
+        this.errorMessage = "Failed to submit the bug report. Please try again."
+      },
+    )
   }
 }
