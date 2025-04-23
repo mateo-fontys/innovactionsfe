@@ -15,11 +15,11 @@
     <!-- Task Description Section -->
     <div class="p-8 bg-[var(--primary-600)] text-white text-center w-full">
       <div class="flex flex-col items-center justify-center">
-        <div class="text-base font-medium opacity-90 mb-2">Task Description</div>
+        <div class="text-base font-medium opacity-90 mb-2">{{ task.description }}</div>
         <div class="text-xl font-medium tracking-tight mb-2">
           Complete the task: 
           <a 
-            href="https://example.com/task" 
+            href="{{ task.link }}"
             target="_blank" 
             class="underline text-white hover:text-white/90 transition-colors"
             >

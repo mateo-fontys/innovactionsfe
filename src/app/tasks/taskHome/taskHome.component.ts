@@ -59,8 +59,8 @@ export class TaskHomeComponent implements OnInit {
     this.router.navigate(['/update-task', taskId]);
   }
 
-  navigateToReportPage() {
-    this.router.navigate(['/report'])
+  navigateToReportPage(task: Task) {
+    this.router.navigate(['/report'], { state: { task: task } });
   }
 }
 

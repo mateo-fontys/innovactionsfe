@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common"
 import { environment } from "../../../environments/environment"
 import { HttpClient } from "@angular/common/http"
 import { Router } from '@angular/router';
+import { Task } from "../shared/TaskModel"
 
 @Component({
   selector: "app-report-form",
@@ -20,8 +21,14 @@ export class BugReportFormComponent {
   isSubmitting = false
   isSuccess = false
   errorMessage = ""
+  task: Task;
 
-constructor(private http: HttpClient, private router: Router) {}
+
+constructor(private http: HttpClient, private router: Router) {
+  const nav = this.router.getCurrentNavigation();
+  this.task = nav?.extras?.state?.['task'];
+  console.log(this.task)
+}
 
   submitReport(): void {
     // Validate input

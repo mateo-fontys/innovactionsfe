@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import axios from 'axios';
+import { environment }  from '../../../environments/environment'
 
 @Component({
   selector: 'app-overview',
@@ -20,7 +21,7 @@ export class OverviewComponent implements OnInit {
   fetchData() {
     console.log('Fetching data...');
     axios
-      .get('http://localhost:8080/users/1')
+      .get(`${environment.apiUrl}/users/1`)
       .then((response) => {
         this.data = response.data;
         console.log(this.data);
