@@ -30,6 +30,7 @@ export class TaskHomeComponent implements OnInit {
         this.fetchTasks();
       })
     );
+
   }
 
   fetchTasks() {
@@ -39,7 +40,9 @@ export class TaskHomeComponent implements OnInit {
     this.tasksService.getTasksFromCreator(creatorId).subscribe({
       next: (data) => {
         // console.log('Before sorting:', data);
-        this.tasks = [...data.sort((a, b) => Number(b.id) - Number(a.id))];  // Sort in descending order
+        this.tasks = [...data.sort((a, b) => Number(b.id) - Number(a.id))]; 
+        
+    console.log(data) // Sort in descending order
         // console.log('Sorted tasks in descending order:', this.tasks);
         this.isLoading = false;
       },

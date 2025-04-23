@@ -13,6 +13,7 @@ import { Task } from "../shared/TaskModel"
   templateUrl: "./bug-report-form.component.html",
   styleUrls: ["./bug-report-form.component.css"],
 })
+
 export class BugReportFormComponent {
   reportText = ""
   userId = 1
