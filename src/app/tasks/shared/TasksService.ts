@@ -125,5 +125,17 @@ export class TasksService {
   getTasksFromCreator(creatorId: number): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.apiUrl}/creator/${creatorId}/overview`);
   }
+
+  getAllTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.apiUrl}`);
+  }
+
+  approveTask(taskId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${taskId}/approve`, {});
+  }
+
+  declineTask(taskId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${taskId}/decline`, {});
+  }
 }
 
