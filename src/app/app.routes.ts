@@ -6,6 +6,7 @@ import { BugReportFormComponent } from './tasks/bug-report-form/bug-report-form.
 import { PaymentComponent } from './payments/payment/payment.component'
 import { PayoutComponent } from './payments/payout/payout.component';
 import { OverviewComponent } from './users/overview/overview.component';
+import { AdminTaskApprovalComponent } from './pages/admin/taskOverview/taskOverview.component';
 //import { UpdateTaskComponent } from './tasks/taskUpdate/updateTask.component';
 
 export const routes: Routes = [
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'payment', component: PaymentComponent },
   { path: 'payout', component: PayoutComponent },
   { path: 'user-overview', component: OverviewComponent },
+  { path: 'admin-task-overview', component: AdminTaskApprovalComponent },
   //{ path: 'update-task/:id', component: UpdateTaskComponent}
 ];
