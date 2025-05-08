@@ -54,11 +54,36 @@ async function getAllTasks() {
   }
 }
 
+async function approveTask(taskId: number) {
+  try {
+    const response = await axios.put(`${apiUrl}/${taskId}/approve`, {});
+    console.log('Task approved successfully:', taskId);
+    return response.data;
+  } catch (error) {
+    console.error(`Error approving task with id: ${taskId}`, error);
+    return null;
+  }
+}
+
+async function declineTask(taskId: number) {
+  try {
+    const response = await axios.put(`${apiUrl}/${taskId}/decline`, {});
+    console.log('Task declined successfully:', taskId);
+    return response.data;
+  } catch (error) {
+    console.error(`Error declining task with id: ${taskId}`, error);
+    return null;
+  }
+}
+
 const TaskService = {
   createTask,
   getTaskById,
   updateTask,
   getTasksFromCreator,
+  approveTask,
+  declineTask,
+  getAllTasks
 };
 
 export default TaskService;

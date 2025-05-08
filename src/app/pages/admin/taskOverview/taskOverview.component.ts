@@ -1,78 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../../../tasks/shared/TasksService';
-import { Task } from '../../../tasks/shared/TaskModel';
+import { Task } from '../../../tasks/shared/task.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import TaskService from '../../../tasks/shared/tasks.service';
 
 @Component({
   selector: 'app-admin-task-approval',
   standalone: true,
   templateUrl: './taskOverview.component.html',
   styleUrls: ['./taskOverview.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
 })
 export class AdminTaskApprovalComponent implements OnInit {
   tasks: Task[] = [];
-  displayedTasks: Task[] = [];  // New property to store filtered/searched tasks
+  displayedTasks: Task[] = [];
   isLoading: boolean = true;
   searchQuery = '';
   filterStatus: 'ALL' | 'PENDING' | 'ACCEPTED' | 'DECLINED' = 'ALL';
 
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private tasksService: TasksService) { }
+  constructor() {}
 
   ngOnInit(): void {
     this.loadTasks();
-    this.subscriptions.add(
-      this.tasksService.tasksRefresh$.subscribe(() => {
-        this.loadTasks();
-      })
-    );
   }
 
-  loadTasks(): void {
+  async loadTasks(): Promise<void> {
     this.isLoading = true;
-    this.tasksService.getAllTasks().subscribe({
-      next: (data) => {
-        this.tasks = [...data];
-        this.applyFilters(); // Apply any existing filters after loading
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Error fetching tasks:', error);
-        this.isLoading = false;
-      }
-    });
+    try {
+      const data = await TaskService.getAllTasks();
+      this.tasks = [...data.tasks];
+      this.applyFilters();
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
-  approveTask(taskId: number): void {
-    this.tasksService.approveTask(taskId).subscribe({
-      next: () => {
-        console.log('Task APPROVED successfully');
-        this.refreshTasks();
-      }
-    })
-    error: (error: string) => {
+  async approveTask(taskId: number): Promise<void> {
+    try {
+      await TaskService.approveTask(taskId);
+      console.log('Task APPROVED successfully');
+      await this.refreshTasks();
+    } catch (error) {
       console.error('Error approving task:', error);
     }
   }
 
-  declineTask(taskId: number): void {
-    this.tasksService.declineTask(taskId).subscribe({
-      next: () => {
-        console.log('Task DECLINED successfully');
-        this.refreshTasks();
-      }
-    })
-    error: (error: string) => {
+  async declineTask(taskId: number): Promise<void> {
+    try {
+      await TaskService.declineTask(taskId);
+      console.log('Task DECLINED successfully');
+      await this.refreshTasks();
+    } catch (error) {
       console.error('Error declining task:', error);
     }
   }
 
-  refreshTasks(): void {
-    this.loadTasks();
+  async refreshTasks(): Promise<void> {
+    await this.loadTasks();
   }
 
   filterByStatus(status: 'ALL' | 'PENDING' | 'ACCEPTED' | 'DECLINED'): void {
@@ -85,15 +74,12 @@ export class AdminTaskApprovalComponent implements OnInit {
   }
 
   private applyFilters(): void {
-    // Start with all tasks
     let filtered = [...this.tasks];
 
-    // Apply status filter
     if (this.filterStatus !== 'ALL') {
       filtered = filtered.filter(task => task.status === this.filterStatus);
     }
 
-    // Apply search filter
     if (this.searchQuery.trim() !== '') {
       const query = this.searchQuery.toLowerCase();
       filtered = filtered.filter(task =>
@@ -101,7 +87,6 @@ export class AdminTaskApprovalComponent implements OnInit {
       );
     }
 
-    // Update the displayed tasks
     this.displayedTasks = filtered;
   }
 
