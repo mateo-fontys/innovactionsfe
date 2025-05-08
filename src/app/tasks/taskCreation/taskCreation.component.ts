@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TasksService } from '../shared/TasksService';
+import  TaskService  from '../shared/tasks.service';
 import { CommonModule } from '@angular/common';
-import UserService from '../../users/shared/UserService';
+import UserService from '../../users/shared/user.service';
 
 @Component({
   selector: 'app-task-creation',
@@ -19,7 +19,7 @@ import UserService from '../../users/shared/UserService';
 
 export class TaskCreationComponent {
 
-  constructor(private router: Router, private tasksService: TasksService) {}
+  constructor(private router: Router) {}
 
   title: string = ''; 
   budget: number = 2500;
@@ -46,9 +46,11 @@ export class TaskCreationComponent {
       }
     };
 
-    this.tasksService.createTask(body);
+    TaskService.createTask(body);
 
     UserService.decreaseVirtualMoney(1, this.budget);
+
+    this.router.navigate(['/task-home']);
    
   }
 }

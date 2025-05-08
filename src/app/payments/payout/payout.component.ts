@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { loadStripe, StripeElements, StripeCardElement, Stripe, TokenResult } from '@stripe/stripe-js';
-import { PaymentService } from '../shared/PaymentService';
+import { PaymentService } from '../shared/payment.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import UserService from '../../users/shared/UserService';
+import UserService from '../../users/shared/user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,7 +34,7 @@ export class PayoutComponent {
   }
   
 
-  async submitPayout(): Promise<void> {
+  async submitPayout() {
     const result = await PaymentService.withdraw(this.recipientEmail, this.amount, this.currency);
 
     if (result.error) {

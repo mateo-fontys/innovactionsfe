@@ -2,9 +2,10 @@ import { Component } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { CommonModule } from "@angular/common"
 import { environment } from "../../../environments/environment"
-import { HttpClient } from "@angular/common/http"
-import { Router } from '@angular/router';
-import { Task } from "../shared/TaskModel"
+import BugReportService from "../shared/bug-report.service"
+import { BugReport } from "../shared/bug-report.model"
+import { Task } from "../shared/task.model"
+import { Router } from "@angular/router"
 
 @Component({
   selector: "app-report-form",
@@ -22,10 +23,10 @@ export class BugReportFormComponent {
   isSubmitting = false
   isSuccess = false
   errorMessage = ""
-  task: Task;
+  task: Task
 
 
-constructor(private http: HttpClient, private router: Router) {
+constructor( private router: Router) {
   const nav = this.router.getCurrentNavigation();
   this.task = nav?.extras?.state?.['task'];
   console.log(this.task)
@@ -41,27 +42,28 @@ constructor(private http: HttpClient, private router: Router) {
     this.isSubmitting = true
     this.errorMessage = ""
 
-    const newReport = {
+    const newReport : BugReport = {
       userId: this.userId,
       taskId: this.taskId,
       reportText: this.reportText,
       status: "PENDING",
     }
 
-    this.http.post(this.apiUrl, newReport).subscribe(
-      (response) => {
-        console.log("Bug report submitted:", response)
-        this.isSubmitting = false
-        this.isSuccess = true
-        this.reportText = ""
+    BugReportService.submitReport(newReport);
+    // this.http.post(this.apiUrl, newReport).subscribe(
+    //   (response) => {
+    //     console.log("Bug report submitted:", response)
+    //     this.isSubmitting = false
+    //     this.isSuccess = true
+    //     this.reportText = ""
 
-        this.router.navigate(['/task-home'])
-      },
-      (error) => {
-        console.error("Error submitting bug report:", error)
-        this.isSubmitting = false
-        this.errorMessage = "Failed to submit the bug report. Please try again."
-      },
-    )
+    //     this.router.navigate(['/task-home'])
+    //   },
+    //   (error) => {
+    //     console.error("Error submitting bug report:", error)
+    //     this.isSubmitting = false
+    //     this.errorMessage = "Failed to submit the bug report. Please try again."
+    //   },
+    // )
   }
 }

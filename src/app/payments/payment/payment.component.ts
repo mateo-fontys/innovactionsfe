@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PaymentService } from '../shared/PaymentService';
-import UserService from '../../users/shared/UserService';
+import { PaymentService } from '../shared/payment.service';
+import UserService from '../../users/shared/user.service';
 import { Router } from '@angular/router';
+import { environment } from  '../../../environments/environment';
 
 @Component({
   selector: 'app-payment',
@@ -35,7 +36,7 @@ export class PaymentComponent implements OnInit {
   constructor(private router: Router) {}
 
   async ngOnInit() {
-    this.stripe = await loadStripe('pk_test_51R3cJuGhJZbsy2ABv0DEcpfLR0fYkSfNOG9tZZdEAuIRhzI8WLF0ogRbAqvZwkKaWpARRja7kyJpmWX9XII2g4G100e4FlPH8L');  // Replace with your public Stripe key
+    this.stripe = await loadStripe(environment.stripeKey);
 
     this.elements = this.stripe ? this.stripe.elements() : null;
 
@@ -77,9 +78,6 @@ export class PaymentComponent implements OnInit {
 
           this.router.navigate(['/user-overview']); 
         }
-
-
-
 
   }
 }

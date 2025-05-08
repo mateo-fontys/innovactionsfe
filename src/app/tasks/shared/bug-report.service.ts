@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { BugReport } from './bug-report.model';
+
 import { environment } from  '../../../environments/environment';
+import axios from 'axios';
+import { BugReport } from './bug-report.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ReportService {
-  private apiUrl = `${environment.apiUrl}/api/report`;
 
-  constructor(private http: HttpClient) {}
-
-  submitReport(report: BugReport): Observable<BugReport> {
-    return this.http.post<BugReport>(this.apiUrl, report);
+async function submitReport(report: BugReport){
+    try {
+      const response = await axios.post(`${environment.apiUrl}/report`, report);
+      return response.data;
+    } catch (error) {
+      console.error('Error submitting bug report:', error);
+      throw error;
+    }
   }
-}
+
+  const BugReportService = {
+    submitReport,
+  };
+
+  export default BugReportService;  
