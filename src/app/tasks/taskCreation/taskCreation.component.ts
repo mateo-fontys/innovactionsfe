@@ -41,9 +41,9 @@ export class TaskCreationComponent {
       difficulty: this.difficulty,
       creator:{
       id: 1,
-      username: 'Bob',           
-      virtualMoney: 100 
-      }
+      name: 'Bob',           
+      virtualMoney: "100",
+      } 
     };
 
     TaskService.createTask(body);

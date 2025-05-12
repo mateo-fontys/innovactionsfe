@@ -13,6 +13,8 @@ import TaskService from "../shared/tasks.service"
 })
 export class TaskHomeComponent implements OnInit {
   tasks: Task[] = [];
+  creatorId = 1!;
+  role = "creator";
   isLoading: boolean = true;
 
   constructor(
@@ -26,6 +28,7 @@ export class TaskHomeComponent implements OnInit {
 
   fetchTasks(): void {
     const creatorId = 1;
+    const role = "creator";
     this.isLoading = true;
   
    TaskService.getTasksFromCreator(creatorId)
@@ -42,7 +45,15 @@ export class TaskHomeComponent implements OnInit {
       });
   }
   
-  
+  archive(taskId: number): void {
+    TaskService.archiveTask(taskId)
+    .then(() => {
+        this.fetchTasks(); // Refresh the task list after archiving
+      })
+      .catch((error) => {
+        console.error('Error archiving task:', error);
+      });
+  }
 
   navigateToCreate() {
     this.router.navigate(['/task-creation']);
