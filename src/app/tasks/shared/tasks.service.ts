@@ -76,6 +76,17 @@ async function declineTask(taskId: number) {
   }
 }
 
+async function archiveTask(taskId: number) {
+  try {
+    const response = await axios.delete(`${apiUrl}/${taskId}`);
+    console.log('Task archived successfully:', response);
+    return response.data;
+  } catch (error) {
+    console.error(`Error archiving task with id: ${taskId}`, error);
+    return null;
+  }
+}
+
 const TaskService = {
   createTask,
   getTaskById,
@@ -83,7 +94,8 @@ const TaskService = {
   getTasksFromCreator,
   approveTask,
   declineTask,
-  getAllTasks
+  getAllTasks,
+  archiveTask
 };
 
 export default TaskService;
