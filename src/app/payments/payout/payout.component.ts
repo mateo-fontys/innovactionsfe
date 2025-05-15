@@ -18,12 +18,14 @@ export class PayoutComponent {
   recipientEmail: string = '';
   amount: number = 5;
   currency: string = 'eur';
-  constructor(private router: Router) {}
-  
+  userId: number = 1;
+  errorMessage: string = '';
+  constructor(private router: Router) { }
+
   limitDecimals(event: Event): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;
-  
+
     if (value.includes('.')) {
       const [whole, decimal] = value.split('.');
       if (decimal.length > 2) {
@@ -32,20 +34,32 @@ export class PayoutComponent {
       }
     }
   }
-  
+
 
   async submitPayout() {
-    const result = await PaymentService.withdraw(this.recipientEmail, this.amount, this.currency);
+    this.errorMessage = '';
+    try {
+      const result = await PaymentService.withdraw(
+        this.recipientEmail,
+        this.amount,
+        this.currency,
+        this.userId
+      );
 
-    if (result.error) {
-      console.error('Payment failed:', result.error);
-    } else {
       console.log('Payout successful!', result);
+      await UserService.decreaseVirtualMoney(this.userId, this.amount);
+      this.router.navigate(['/user-overview']);
+
+    } catch (err: any) {
+      console.error('Payout error:', err);
+      if (err.status === 400) {
+        this.errorMessage = err.response.data || 'An unknown error occurred.';
+        console.error('Payout failed:', this.errorMessage);
+      }
+      else {
+        this.errorMessage = 'Something went wrong!';
+      }
     }
-
-    await UserService.decreaseVirtualMoney(1, this.amount);
-
-    this.router.navigate(['/user-overview']); 
   }
 }
 

@@ -12,11 +12,12 @@ async function deposit(amount: number, currency: string){
     return response.data;
 }
 
-async function withdraw(recipientEmail: string, amount : number, currency: string){
+async function withdraw(recipientEmail: string, amount : number, currency: string, userId: number){
         const response = await axios.post(`${environment.apiUrl}/payment/withdraw`, {
             recipientEmail: recipientEmail,
             amount: amount,
-            currency: currency
+            currency: currency,
+            userId: userId
         });
 
         return response.data;
