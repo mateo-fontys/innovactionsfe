@@ -5,13 +5,8 @@ import { Task } from './task.model';
 const apiUrl = `${environment.apiUrl}/tasks`;
 
 async function createTask(body: Task) {
-  try {
-    const response = await axios.post(apiUrl, body);
-    return response.data;
-    console.log('Task created successfully:', response.data);
-  } catch (error) {
-    console.error('Error creating task:', error);
-  }
+  const response = await axios.post(apiUrl, body);
+  return response.data;
 }
 
 async function getTaskById(id: string) {
