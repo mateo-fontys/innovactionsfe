@@ -90,7 +90,7 @@ const TaskService = {
   approveTask,
   declineTask,
   getAllTasks,
-  archiveTask
+  archiveTask,
 };
 
 export default TaskService;

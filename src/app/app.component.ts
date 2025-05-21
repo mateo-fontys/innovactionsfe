@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';  // Import FormsModule here
 import axios from 'axios';
 import { NavbarComponent } from './utilities/navbar/navbar.component';
-import { BugReportFormComponent } from './tasks/bug-report-form/bug-report-form.component';
+import { BugReportFormComponent } from './tasks/bugReportForm/bugReportForm.component';
 
 
 @Component({
