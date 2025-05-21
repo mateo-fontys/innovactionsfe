@@ -4,8 +4,8 @@ import { Task } from './task.model';
 
 const apiUrl = `${environment.apiUrl}/tasks`;
 
-async function createTask(body: Task) {
-  const response = await axios.post(apiUrl, body);
+async function createTask(task: Task) {
+  const response = await axios.post(apiUrl, task)
   return response.data;
 }
 
