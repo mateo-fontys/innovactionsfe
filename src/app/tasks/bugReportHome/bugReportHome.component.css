@@ -1,0 +1,91 @@
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.bug-report-list {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.bug-report-row {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.collapsed {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.expanded {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 10px;
+  height: 35vh; /* Increased height to accommodate buttons */
+}
+
+.report-text {
+  flex: 0 0 40%; /* Set the width to 40% of the row */
+}
+
+.report-text quill-editor {
+  height: 30vh;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.carousel {
+  flex: 0 0 60%; /* Set the width to 60% of the row */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%; /* Adjusted to fit the new row height */
+  overflow: hidden; /* Ensure content does not overflow */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding: 10px; /* Added padding to prevent image from sticking to the border */
+}
+
+.carousel img {
+  height: 25vh; /* Set a fixed height for the images */
+  max-width: 100%; /* Ensure the image does not overflow horizontally */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  object-fit: contain; /* Ensure the image fits within the fixed height */
+}
+
+.carousel-btn {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 15px; /* Increased padding for better visibility */
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.carousel-btn.left,
+.carousel-btn.right {
+  position: static; /* Remove absolute positioning */
+  margin: 0 5px; /* Add spacing between buttons */
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; /* Add spacing below the carousel */
+  width: 100%; /* Ensure buttons stay within the carousel width */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+}
