@@ -5,6 +5,20 @@ import axios from 'axios';
 import { environment }  from '../../../environments/environment'
 import UserService from '../shared/user.service';
 
+// Define the interface for the response from your backend's spending endpoint
+interface TotalSpendingData {
+  totalPayout: number;
+  totalBudget: number;
+}
+
+// Define the interface for your user data if you have a specific shape
+interface UserDetail {
+    id: number;
+    username: string;
+    virtualMoney: number;
+    // Add any other user properties you expect here
+}
+
 @Component({
   selector: 'app-overview',
   standalone: true,
@@ -13,7 +27,13 @@ import UserService from '../shared/user.service';
   styleUrl: './overview.component.css',
 })
 export class OverviewComponent implements OnInit {
-  data: any 
+  // data: any 
+  data: UserDetail | any;
+  totalSpendingData: TotalSpendingData | null = null;
+  errorMessage: string = '';
+
+  private currentCreatorId: number = 1; // For now hardcoded user 1
+
 
   ngOnInit() {
     this.fetchData();
@@ -21,17 +41,24 @@ export class OverviewComponent implements OnInit {
 
   async fetchData() {
     console.log('Fetching data...');
-    const data = await UserService.getUserById(1)
-    this.data = data;
-    console.log(this.data);
-    // axios
-    //   .get(`${environment.apiUrl}/users/1`)
-    //   .then((response) => {
-    //     this.data = response.data;
-    //     console.log(this.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching data:', error);
-    //   });
+    try {
+      // Fetch user details
+      const userData = await UserService.getUserById(this.currentCreatorId);
+      this.data = userData;
+      console.log('User data:', this.data);
+
+      // Fetch total spending and budget for the same user
+      const spendingData = await UserService.getTotalSpendingAndBudgetByCreator(this.currentCreatorId);
+      this.totalSpendingData = spendingData;
+      console.log('Spending data:', this.totalSpendingData);
+
+      this.errorMessage = ''; // Clear any previous errors
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      this.errorMessage = 'Failed to load user and spending data.';
+      this.data = null; // Clear data on error
+      this.totalSpendingData = null; // Clear spending data on error
+    }
   }
 }
