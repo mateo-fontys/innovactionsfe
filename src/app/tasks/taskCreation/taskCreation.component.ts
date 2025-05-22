@@ -51,36 +51,77 @@ export class TaskCreationComponent {
   }
 
   async onTaskCreation() {
-  let base64Image: string | null = null;
+    try {
+        let base64Image: string | null = null;
 
   if (this.uploadedFiles.length > 0) {
     base64Image = await this.readFileAsBase64(this.uploadedFiles[0]);
   }
+    this.errorMessage = '';
 
-  console.log('Base64 Image:', base64Image);
+      const body = {
+        title: this.title,
+        budget: this.budget,
+        link: this.link,
+        description: this.description,
+        image: base64Image!,
+        payout: 0,
+        difficulty: this.difficulty,
+        creator: {
+          id: 1,
+          name: 'Bob',
+          virtualMoney: "100",
+        }
+      };
 
-    const body = {
-      title: this.title,
-      budget: this.budget,
-      link: this.link,
-      description: this.description,
-      image: base64Image!,
-      payout: 0,
-      difficulty: this.difficulty,
-      creator:{
-      id: 1,
-      name: 'Bob',           
-      virtualMoney: "100",
-      } 
-    };
+      await TaskService.createTask(body);
+      await UserService.decreaseVirtualMoney(1, this.budget);
 
-    TaskService.createTask(body);
+      this.router.navigate(['/task-home']);
+    } catch (err: any) {
+      console.error('Task creation error:', err);
+      if (err.response && err.response.status === 400) {
+        const errorHeader = err.response.headers['error'];
+        this.errorMessage = errorHeader || 'An unknown error occurred.';
+        console.error('Task creation failed:', this.errorMessage);
+      } else {
+        this.errorMessage = 'Something went wrong!';
+      }
+    }
 
-    UserService.decreaseVirtualMoney(1, this.budget);
-
-    this.router.navigate(['/task-home']);
-   
   }
+
+  // async onTaskCreation() {
+  // let base64Image: string | null = null;
+
+  // if (this.uploadedFiles.length > 0) {
+  //   base64Image = await this.readFileAsBase64(this.uploadedFiles[0]);
+  // }
+
+  // console.log('Base64 Image:', base64Image);
+
+  //   const body = {
+  //     title: this.title,
+  //     budget: this.budget,
+  //     link: this.link,
+  //     description: this.description,
+  //     image: base64Image!,
+  //     payout: 0,
+  //     difficulty: this.difficulty,
+  //     creator:{
+  //     id: 1,
+  //     name: 'Bob',           
+  //     virtualMoney: "100",
+  //     } 
+  //   };
+
+  //   TaskService.createTask(body);
+
+  //   UserService.decreaseVirtualMoney(1, this.budget);
+
+  //   this.router.navigate(['/task-home']);
+   
+  // }
 
   triggerFileInput(fileInput: HTMLInputElement) {
     fileInput.click();
