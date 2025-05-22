@@ -22,11 +22,16 @@ async function decreaseVirtualMoney(userId: number,amount: number) {
     return response.data;
 }
 
+async function getTotalSpendingAndBudgetByCreator(creatorId: number) {
+    const response = await axios.get(`${environment.apiUrl}/tasks/creator/${creatorId}/total-spending`);
+    return response.data;
+}
 
  const UserService = {
     getUsers,
     getUserById,
     increaseVirtualMoney,
-    decreaseVirtualMoney
+    decreaseVirtualMoney,
+    getTotalSpendingAndBudgetByCreator
 }
 export default UserService;
