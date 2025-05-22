@@ -5,6 +5,8 @@ import  TaskService  from '../shared/tasks.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import UserService from '../../users/shared/user.service';
 
+import Keycloak from 'keycloak-js';
+
 @Component({
   selector: 'app-task-creation',
   standalone: true,
@@ -18,14 +20,13 @@ import UserService from '../../users/shared/user.service';
 
 
 export class TaskCreationComponent {
-
   constructor(private router: Router,   @Inject(PLATFORM_ID) private platformId: Object,) {}
 
-  title: string = ''; 
+  title: string = '';
   budget: number = 2500;
   link: string = '';
   description: string = '';
-  difficulty: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW'; 
+  difficulty: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW';
 
  toastVisible = false;
   toastMessage = '';
@@ -36,7 +37,7 @@ export class TaskCreationComponent {
   maxVideoSize = 50 * 1024 * 1024 // 50MB
   maxTotalSize = 150 * 1024 * 1024 // 150MB
   errorMessage = ""
-  
+
   showToast(message: string, type: 'success' | 'error' | 'info' = 'info') {
     if (!isPlatformBrowser(this.platformId)) return;
     this.toastMessage = message;
@@ -88,6 +89,8 @@ export class TaskCreationComponent {
         this.errorMessage = 'Something went wrong!';
       }
     }
+
+    this.router.navigate(['/task-home']);
 
   }
 

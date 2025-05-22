@@ -8,6 +8,7 @@ import { PayoutComponent } from './payments/payout/payout.component';
 import { OverviewComponent } from './users/overview/overview.component';
 import { AdminTaskApprovalComponent } from './pages/admin/taskOverview/taskOverview.component';
 import { BugReportHomeComponent } from './tasks/bugReportHome/bugReportHome.component';
+import { AuthTestComponent } from './auth-test/auth-test.component';
 //import { UpdateTaskComponent } from './tasks/taskUpdate/updateTask.component';
 
 export const routes: Routes = [
@@ -20,5 +21,6 @@ export const routes: Routes = [
   { path: 'user-overview', component: OverviewComponent },
   { path: 'admin-task-overview', component: AdminTaskApprovalComponent },
   { path: 'bug-report-home', component: BugReportHomeComponent },
+  { path: 'auth-test', component: AuthTestComponent },
   //{ path: 'update-task/:id', component: UpdateTaskComponent}
 ];
