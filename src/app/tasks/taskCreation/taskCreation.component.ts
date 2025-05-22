@@ -2,8 +2,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import TaskService from '../shared/tasks.service';
+import { Task } from '../shared/task.model';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import UserService from '../../users/shared/user.service';
+
+import Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-task-creation',
@@ -19,7 +23,7 @@ import UserService from '../../users/shared/user.service';
 
 export class TaskCreationComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private readonly keycloak: Keycloak, private http: HttpClient) { }
 
   title: string = '';
   budget: number = 2500;
@@ -34,6 +38,7 @@ export class TaskCreationComponent {
   }
 
   async onTaskCreation() {
+    console.log(this.keycloak.authenticated);
     try {
     this.errorMessage = '';
 

@@ -1,0 +1,35 @@
+<div class="auth-test-container">
+  <h2 class="auth-test-title">Auth Test</h2>
+  <div class="auth-button-group">
+    <div class="auth-button-row">
+      <button class="auth-button" (click)="testAccess('any')">Any User Action</button>
+      <span class="auth-result"[class.auth-error]="results['any'] === 'Unauthorized'">
+        {{ results['any'] }}
+      </span>
+    </div>
+    <div *ngIf="isAuthenticated()" class="auth-button-row">
+      <button class="auth-button" (click)="testAccess('auth')">Authenticated User Action</button>
+      <span class="auth-result" [class.auth-error]="results['auth'] === 'Unauthorized'">
+        {{ results['auth'] }}
+      </span>
+    </div>
+    <div *ngIf="hasRole('tester')" class="auth-button-row">
+      <button class="auth-button" (click)="testAccess('tester')">Tester Action</button>
+      <span class="auth-result" [class.auth-error]="results['tester'] === 'Unauthorized'">
+        {{ results['tester'] }}
+      </span>
+    </div>
+    <div *ngIf="hasRole('creator')" class="auth-button-row">
+      <button class="auth-button" (click)="testAccess('creator')">Task Creator Action</button>
+      <span class="auth-result" [class.auth-error]="results['creator'] === 'Unauthorized'">
+        {{ results['creator'] }}
+      </span>
+    </div>
+    <div *ngIf="hasRole('admin')" class="auth-button-row">
+      <button class="auth-button" (click)="testAccess('admin')">Admin Action</button>
+      <span class="auth-result" [class.auth-error]="results['admin'] === 'Unauthorized'">
+        {{ results['admin'] }}
+      </span>
+    </div>
+  </div>
+</div>
