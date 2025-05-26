@@ -9,6 +9,7 @@ import { OverviewComponent } from './users/overview/overview.component';
 import { AdminTaskApprovalComponent } from './pages/admin/taskOverview/taskOverview.component';
 import { BugReportHomeComponent } from './tasks/bugReportHome/bugReportHome.component';
 import { AuthTestComponent } from './auth-test/auth-test.component';
+import { AllTimeLeaderboardComponent } from './leaderboards/all-time-leaderboard/all-time-leaderboard.component';
 //import { UpdateTaskComponent } from './tasks/taskUpdate/updateTask.component';
 
 export const routes: Routes = [
@@ -22,5 +23,6 @@ export const routes: Routes = [
   { path: 'admin-task-overview', component: AdminTaskApprovalComponent },
   { path: 'bug-report-home', component: BugReportHomeComponent },
   { path: 'auth-test', component: AuthTestComponent },
+  { path: 'all-time-leaderboard', component: AllTimeLeaderboardComponent },
   //{ path: 'update-task/:id', component: UpdateTaskComponent}
 ];
