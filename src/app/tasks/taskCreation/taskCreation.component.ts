@@ -46,8 +46,8 @@ export class TaskCreationComponent {
         difficulty: this.difficulty,
         creator: {
           id: 1,
-          name: 'Bob',
-          virtualMoney: "100",
+          username: 'Bob',
+          virtualMoney: 100,
         }
       };
 

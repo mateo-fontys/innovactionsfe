@@ -148,25 +148,38 @@
               </p>
             </div>
            
-            <div class="flex  gap-2 w-full">
-              <div class="flex-1  p-[2px] bg-gradient-to-r from-[var(--secondary-600)] to-[var(--primary-600)] ">
+            <div class="flex gap-2 w-full">
+              <!-- View Details Button -->
+              <div class="flex-1 p-[2px] bg-gradient-to-r from-[var(--secondary-600)] to-[var(--primary-600)]">
                 <button
-                class="bg-white text-[var(--primary-600)] rounded-md px-4 py-3 w-full h-full"
-                (click)="navigateToReportPage(task)"
+                  class="bg-white text-[var(--primary-600)] rounded-md px-4 py-3 w-full h-full"
+                  (click)="navigateToReportPage(task)"
                 >
                   View Details
                 </button>
-            
               </div>
-              <div *ngIf="role === 'admin' || creatorId === task.creator?.id"
-              class="p-[2px] bg-gradient-to-r from-[var(--secondary-600)] to-[var(--primary-600)] flex gap-2">
-                <button
-                  
-                  class="flex-1 bg-white text-[var(--primary-600)] rounded-md px-4 py-3 w-full h-full"
-                  (click)="archive(task.id!)"
-                >
-                  Deactivate
-                </button>
+              
+              <!-- Admin/Creator Actions -->
+              <div *ngIf="role === 'admin' || creatorId === task.creator?.id" class="flex gap-2">
+                <!-- Update Button -->
+                <div class="p-[2px] bg-gradient-to-r from-[var(--secondary-600)] to-[var(--primary-600)]">
+                  <button
+                    class="bg-white text-[var(--primary-600)] rounded-md px-4 py-3 w-full h-full"
+                    (click)="navigateToUpdate(task.id!.toString())"
+                  >
+                    Update
+                  </button>
+                </div>
+                
+                <!-- Deactivate Button -->
+                <div class="p-[2px] bg-gradient-to-r from-[var(--secondary-600)] to-[var(--primary-600)]">
+                  <button
+                    class="bg-white text-[var(--primary-600)] rounded-md px-4 py-3 w-full h-full"
+                    (click)="archive(task.id!)"
+                  >
+                    Deactivate
+                  </button>
+                </div>
               </div>
             </div>
           </div>

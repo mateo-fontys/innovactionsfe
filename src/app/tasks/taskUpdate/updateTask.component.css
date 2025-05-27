@@ -1,0 +1,53 @@
+.container {
+  max-width: 800px;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+/* In updateTask.component.css */
+.form-select {
+  cursor: pointer;
+}
+
+/* Difficulty colors */
+.difficulty-high {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.difficulty-medium {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+.difficulty-low {
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Status colors */
+.status-accepted {
+  color: #28a745;
+}
+
+.status-pending {
+  color: #ffc107;
+}
+
+.status-declined {
+  color: #dc3545;
+}
+
+.status-deactivated {
+  color: #6c757d;
+}

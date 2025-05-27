@@ -6,9 +6,12 @@ export interface Task {
     description: string;
     payout: number;
     budget: number;
-    link: string; 
-    image?: string;
-    creator?: User;
+    link: string;
     difficulty: 'HIGH' | 'MEDIUM' | 'LOW';
     status?: 'ACCEPTED' | 'PENDING' | 'DECLINED' | 'DEACTIVATED';
+    creator?: {
+    id: number;
+    username: string;
+    virtualMoney: number;
+  };
   }

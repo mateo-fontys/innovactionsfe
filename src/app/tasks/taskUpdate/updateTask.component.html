@@ -18,3 +18,118 @@
 
   <button type="submit">Update Task</button>
 </form> -->
+
+<div class="container mt-4">
+  <h2>Update Task</h2>
+  
+  <div *ngIf="isLoading" class="text-center my-4">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading && !errorMessage">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title*</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="title" 
+        formControlName="title"
+        [ngClass]="{'is-invalid': taskForm.get('title')?.invalid && taskForm.get('title')?.touched}"
+      >
+      <div class="invalid-feedback" *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+        Title is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea 
+        class="form-control" 
+        id="description" 
+        rows="3" 
+        formControlName="description"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="payout" class="form-label">Payout*</label>
+      <input 
+        type="number" 
+        class="form-control" 
+        id="payout" 
+        formControlName="payout"
+        [ngClass]="{'is-invalid': taskForm.get('payout')?.invalid && taskForm.get('payout')?.touched}"
+      >
+      <div class="invalid-feedback" *ngIf="taskForm.get('payout')?.invalid && taskForm.get('payout')?.touched">
+        Payout must be a positive number
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="budget" class="form-label">Budget*</label>
+      <input 
+        type="number" 
+        class="form-control" 
+        id="budget" 
+        formControlName="budget"
+        [ngClass]="{'is-invalid': taskForm.get('budget')?.invalid && taskForm.get('budget')?.touched}"
+      >
+      <div class="invalid-feedback" *ngIf="taskForm.get('budget')?.invalid && taskForm.get('budget')?.touched">
+        Budget must be a positive number
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="link" class="form-label">Link</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="link" 
+        formControlName="link"
+      >
+    </div>
+
+    <!-- Difficulty Dropdown -->
+    <div class="mb-3">
+      <label for="difficulty" class="form-label">Difficulty*</label>
+      <select 
+        class="form-select" 
+        id="difficulty" 
+        formControlName="difficulty"
+        [ngClass]="{'is-invalid': taskForm.get('difficulty')?.invalid && taskForm.get('difficulty')?.touched}"
+      >
+        <option *ngFor="let option of difficultyOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+      <div class="invalid-feedback" *ngIf="taskForm.get('difficulty')?.invalid && taskForm.get('difficulty')?.touched">
+        Difficulty is required
+      </div>
+    </div>
+
+    <!-- Status Dropdown -->
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+      <select 
+        class="form-select" 
+        id="status" 
+        formControlName="status"
+      >
+        <option *ngFor="let option of statusOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">Update Task</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
