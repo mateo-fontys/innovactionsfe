@@ -9,23 +9,6 @@ async function createTask(body: Task) {
   return response.data;
 }
 
-// In tasks.service.ts
-async function getTaskById(id: string) {
-  try {
-    console.log(`Fetching task with ID: ${id} from ${apiUrl}/${id}`);
-    const response = await axios.get(`${apiUrl}/${id}`);
-    console.log('Task API response:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching task by id: ${id}`, error);
-    // Check if it's a 404 error
-    if (axios.isAxiosError(error) && error.response?.status === 404) {
-      console.error('Task not found (404)');
-    }
-    return null;
-  }
-}
-
 async function updateTask(id: string, task: Task) {
   try {
     console.log('Updating task with data:', task);
@@ -92,7 +75,6 @@ async function archiveTask(taskId: number) {
 
 const TaskService = {
   createTask,
-  getTaskById,
   updateTask,
   getTasksFromCreator,
   approveTask,
