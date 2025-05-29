@@ -36,10 +36,32 @@ async function getAllBugReports() {
   }
 }
 
+async function approveReport(reportId: number) {
+  try {
+    const response = await axios.put(`${apiUrl}/${reportId}/approve`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error approving bug report #${reportId}:`, error);
+    throw error;
+  }
+}
+
+async function declineReport(reportId: number) {
+  try {
+    const response = await axios.put(`${apiUrl}/${reportId}/decline`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error declining bug report #${reportId}:`, error);
+    throw error;
+  }
+}
+
 
 const BugReportService = {
   submitReport,
-  getAllBugReports
+  getAllBugReports,
+  approveReport,
+  declineReport
 };
 
 export default BugReportService;
