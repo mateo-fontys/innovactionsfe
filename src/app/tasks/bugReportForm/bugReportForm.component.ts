@@ -85,7 +85,7 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private http: HttpClient,
   ) {
-  const nav = this.router.getCurrentNavigation();
+    const nav = this.router.getCurrentNavigation();
     if (nav?.extras?.state?.['task']) {
       this.task = nav.extras.state['task'];
       this.taskId = this.task.id || 0;
@@ -94,7 +94,7 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
       // Consider if this is the right place if persistence is truly off
       // as a refresh would also trigger this if task state isn't passed again.
       if (isPlatformBrowser(this.platformId)) { // Only navigate in browser
-          this.router.navigate(['/tasks']);
+        this.router.navigate(['/tasks']);
       }
     }
     // Persistence via restoreFormState() has been removed.
@@ -140,8 +140,8 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
       await this.stopScreenRecording();
     }
     if (this.mediaStream) {
-        this.mediaStream.getTracks().forEach(track => track.stop());
-        this.mediaStream = null;
+      this.mediaStream.getTracks().forEach(track => track.stop());
+      this.mediaStream = null;
     }
     if (this.recordingTimerId) {
       clearInterval(this.recordingTimerId);
@@ -290,14 +290,14 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
           } else {
             this.screenRecordingBlob = blob;
             if (!this.recordingCancelled && !this.isSubmitting) {
-                 this.showToast(`Screen recording saved (${(blob.size / (1024 * 1024)).toFixed(2)} MB)`, 'success');
+              this.showToast(`Screen recording saved (${(blob.size / (1024 * 1024)).toFixed(2)} MB)`, 'success');
             }
           }
           this.recordedChunks = [];
         }
         if (this.mediaStream) {
-            this.mediaStream.getTracks().forEach(track => track.stop());
-            this.mediaStream = null;
+          this.mediaStream.getTracks().forEach(track => track.stop());
+          this.mediaStream = null;
         }
         if (this.stopRecordingResolver) {
           this.stopRecordingResolver();
@@ -325,8 +325,8 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
       this.recordingCancelled = true;
       this.isRecording = false;
       if (this.mediaStream) {
-          this.mediaStream.getTracks().forEach(track => track.stop());
-          this.mediaStream = null;
+        this.mediaStream.getTracks().forEach(track => track.stop());
+        this.mediaStream = null;
       }
       this.showToast('Task start failed: Screen recording permission denied or error.', 'error');
     }
@@ -339,8 +339,8 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
         this.mediaRecorder.stop();
       } else {
         if (this.mediaStream && !this.isRecording) {
-            this.mediaStream.getTracks().forEach(track => track.stop());
-            this.mediaStream = null;
+          this.mediaStream.getTracks().forEach(track => track.stop());
+          this.mediaStream = null;
         }
         resolve();
       }
@@ -367,20 +367,20 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
       }
 
       const formData = new FormData();
-      formData.append('userId', this.userId.toString());
+      formData.append('requestingUserId', this.userId.toString());
       formData.append('taskId', this.taskId.toString());
       formData.append('reportText', this.reportText);
       formData.append('status', "PENDING");
 
       // Add screen recording with proper metadata
-      formData.append('screenRecording', 
-        this.screenRecordingBlob, 
+      formData.append('screenRecording',  
+        this.screenRecordingBlob,
         `screen-recording-${this.taskId}-${Date.now()}.webm`
       );
 
       // Add uploaded files with proper metadata
-      this.uploadedFiles.forEach((file, index) => {
-        formData.append(`file${index}`, file, file.name);
+      this.uploadedFiles.forEach(file => {
+        formData.append('additionalFiles', file, file.name);
       });
 
       // Add task metadata
@@ -401,7 +401,7 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
         }
       }
       if (this.screenRecordingBlob) {
-          console.log("  (Raw Screen Recording Blob details: size:", this.screenRecordingBlob.size, "type:", this.screenRecordingBlob.type, ")");
+        console.log("  (Raw Screen Recording Blob details: size:", this.screenRecordingBlob.size, "type:", this.screenRecordingBlob.type, ")");
       }
       console.log("--- End of FormData ---");
 
@@ -417,7 +417,7 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
       this.isUploading = false;
       this.isSuccess = true;
       this.showToast("Bug report submitted successfully!", 'success');
-      
+
       // Clear form and navigate away
       setTimeout(() => {
         this.taskStarted = false;

@@ -20,14 +20,14 @@ export class BugReportHomeComponent implements OnInit {
   toastMessage = '';
   toastType: 'success' | 'error' | 'info' = 'info';
 
-  constructor() {}
+  constructor() { }
 
   async ngOnInit() {
     try {
       this.bugReports = await BugReportService.getAllBugReports();
       this.bugReports = this.bugReports.map(report => ({
         ...report,
-        mediaFiles: [report.screenRecording, ...(report.additionalFiles || [])],
+        mediaFiles: report.additionalFiles || [],
         currentImageIndex: 0
       }));
       console.log('Bug reports fetched');
