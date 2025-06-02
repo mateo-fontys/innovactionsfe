@@ -28,21 +28,37 @@
           <span class="expand-icon">{{ expandedIndex === i ? '▲' : '▼' }}</span>
         </div>
       </div>
+
       <div *ngIf="expandedIndex === i" class="expanded">
         <div class="report-text">
           <quill-editor [readOnly]="true" [modules]="quillModules" [(ngModel)]="report.reportText"></quill-editor>
         </div>
-        <div class="carousel">
-          <img *ngIf="report.mediaFiles.length"
-            [src]="'data:image/png;base64,' + report.mediaFiles[report.currentImageIndex]" alt="Bug Report Media"
-            (click)="$event.stopPropagation()" />
-          <div class="carousel-buttons">
-            <button class="carousel-btn left" (click)="prevImage(i); $event.stopPropagation()">◀</button>
-            <button class="carousel-btn right" (click)="nextImage(i); $event.stopPropagation()">▶</button>
-          </div>
+
+        <div class="carousel mt-4">
+          <ng-container *ngIf="report.mediaFiles.length > 0; else noFiles">
+            <img [src]="'data:image/png;base64,' + report.mediaFiles[report.currentImageIndex]" alt="Bug Report Media"
+              (click)="$event.stopPropagation()" />
+            <div class="carousel-buttons">
+              <button class="carousel-btn left" (click)="prevImage(i); $event.stopPropagation()">◀</button>
+              <button class="carousel-btn right" (click)="nextImage(i); $event.stopPropagation()">▶</button>
+            </div>
+          </ng-container>
+          <ng-template #noFiles>
+            <p class="text-sm text-gray-500 italic">No files uploaded.</p>
+          </ng-template>
+        </div>
+
+
+        <div class="video-wrapper mt-4">
+          <video *ngIf="report.screenRecordingUrl" controls class="w-full rounded-lg shadow-md"
+            (click)="$event.stopPropagation()">
+            <source [src]="report.screenRecordingUrl" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </div>
+
     <div *ngIf="toastVisible"
       [ngClass]="{'bg-green-600': toastType === 'success', 'bg-red-600': toastType === 'error', 'bg-blue-600': toastType === 'info'}"
       class="fixed top-4 right-4 px-6 py-3 rounded-lg text-white shadow-lg z-[9999] flex items-center gap-3 animate-[fadeIn_0.3s_ease-out_forwards]">
