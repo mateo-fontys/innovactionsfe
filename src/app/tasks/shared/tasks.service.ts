@@ -10,23 +10,14 @@ async function createTask(task: Task) {
   return response.data;
 }
 
-async function getTaskById(id: string) {
-  try {
-    const response = await axios.get(`${apiUrl}/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching task by id: ${id}`, error);
-    return null;
-  }
-}
-
 async function updateTask(id: string, task: Task) {
   try {
+    console.log('Updating task with data:', task);
     const response = await axios.put(`${apiUrl}/${id}`, task);
     return response.data;
   } catch (error) {
     console.error(`Error updating task with id: ${id}`, error);
-    return null;
+    throw error; // Re-throw the error to handle it in the component
   }
 }
 
@@ -85,7 +76,6 @@ async function archiveTask(taskId: number) {
 
 const TaskService = {
   createTask,
-  getTaskById,
   updateTask,
   getTasksFromCreator,
   approveTask,
