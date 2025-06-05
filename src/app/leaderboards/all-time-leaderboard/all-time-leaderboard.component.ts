@@ -7,23 +7,13 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './all-time-leaderboard.component.html',
-  styleUrls: ['./all-time-leaderboard.component.css']
+  styleUrls: ['./all-time-leaderboard.component.css'],
 })
 export class AllTimeLeaderboardComponent implements OnInit {
   leaderboard: any[] = [];
 
   async ngOnInit() {
     const response = await LeaderboardService.getAllTimeLeaderboard();
-    // this.leaderboard = response
-
-    if (!this.leaderboard || this.leaderboard.length === 0) {
-    this.leaderboard = Array.from({ length: 10 }, (_, i) => ({
-      id: i + 1,
-      username: `MockUser${i + 1}`,
-      virtualMoney: Math.floor(Math.random() * 10000) + 1000,
-      experiencePoints: Math.floor(Math.random() * 5000) + 500
-    }));
-    this.leaderboard.sort((a, b) => b.experiencePoints - a.experiencePoints);
-  }
+    this.leaderboard = response.leaderboard
   }
 }

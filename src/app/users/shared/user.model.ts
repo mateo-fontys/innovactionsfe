@@ -1,7 +1,8 @@
 // user.model.ts
 export interface User {
     id: number;
-    name: string;
+    username: string;
     virtualMoney: string;
+   experiencePoints: number;
   }
   
