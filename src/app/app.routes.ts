@@ -11,6 +11,7 @@ import { BugReportHomeComponent } from './tasks/bugReportHome/bugReportHome.comp
 import { AuthTestComponent } from './auth-test/auth-test.component';
 import { AllTimeLeaderboardComponent } from './leaderboards/all-time-leaderboard/all-time-leaderboard.component';
 import { UpdateTaskComponent } from './tasks/taskUpdate/updateTask.component';
+import { ProfilePageComponent } from './users/profile-page/profile-page.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -24,5 +25,6 @@ export const routes: Routes = [
   { path: 'bug-report-home', component: BugReportHomeComponent },
   { path: 'auth-test', component: AuthTestComponent },
   { path: 'all-time-leaderboard', component: AllTimeLeaderboardComponent },
-  { path: 'update-task/:id', component: UpdateTaskComponent}
+  { path: 'update-task/:id', component: UpdateTaskComponent},
+  { path: 'profile', component: ProfilePageComponent}
 ];
