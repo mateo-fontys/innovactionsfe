@@ -16,6 +16,9 @@ export class BugReportHomeComponent implements OnInit {
   quillModules = {
     toolbar: false
   };
+  toastVisible = false;
+  toastMessage = '';
+  toastType: 'success' | 'error' | 'info' = 'info';
 
   constructor() {}
 
@@ -27,6 +30,8 @@ export class BugReportHomeComponent implements OnInit {
         mediaFiles: [report.screenRecording, ...(report.additionalFiles || [])],
         currentImageIndex: 0
       }));
+      console.log('Bug reports fetched');
+      console.dir(this.bugReports)
     } catch (error) {
       console.error('Error fetching bug reports:', error);
     }
@@ -51,5 +56,34 @@ export class BugReportHomeComponent implements OnInit {
     image.src = `data:image/png;base64,${imageBase64}`;
     const w = window.open('');
     w?.document.write(image.outerHTML);
+  }
+
+  showToast(message: string, type: 'success' | 'error' | 'info' = 'info') {
+    this.toastMessage = message;
+    this.toastType = type;
+    this.toastVisible = true;
+    setTimeout(() => { this.toastVisible = false; }, 5000);
+  }
+
+  async approveReport(reportId: number, index: number) {
+    try {
+      await BugReportService.approveReport(reportId);
+      this.bugReports[index].status = 'APPROVED';
+      this.showToast('Bug report approved successfully!', 'success');
+    } catch (error) {
+      console.error('Error approving bug report:', error);
+      this.showToast('Failed to approve bug report. Please try again.', 'error');
+    }
+  }
+
+  async declineReport(reportId: number, index: number) {
+    try {
+      await BugReportService.declineReport(reportId);
+      this.bugReports[index].status = 'DECLINED';
+      this.showToast('Bug report declined successfully!', 'success');
+    } catch (error) {
+      console.error('Error declining bug report:', error);
+      this.showToast('Failed to decline bug report. Please try again.', 'error');
+    }
   }
 }
