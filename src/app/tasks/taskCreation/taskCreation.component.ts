@@ -38,6 +38,8 @@ export class TaskCreationComponent {
   maxTotalSize = 150 * 1024 * 1024 // 150MB
   errorMessage = ""
 
+  previewUrl: string | null = null;
+
   showToast(message: string, type: 'success' | 'error' | 'info' = 'info') {
     if (!isPlatformBrowser(this.platformId)) return;
     this.toastMessage = message;
@@ -173,6 +175,7 @@ export class TaskCreationComponent {
   }
 
   this.uploadedFiles = [file]; // Replace any previous file
+   this.previewUrl = URL.createObjectURL(file);
   this.showToast(`File '${file.name}' added.`, 'success');
   input.value = '';
 }
