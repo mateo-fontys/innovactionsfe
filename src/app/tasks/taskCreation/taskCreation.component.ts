@@ -67,7 +67,7 @@ export class TaskCreationComponent {
         budget: this.budget,
         link: this.link,
         description: this.description,
-      image: base64Image!,
+        image: base64Image!,
         payout: 0,
         difficulty: this.difficulty,
         creator: {
