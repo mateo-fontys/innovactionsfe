@@ -141,6 +141,7 @@ export class UpdateTaskComponent implements OnInit {
         budget: formValues.budget,
         link: formValues.link,
         difficulty: formValues.difficulty,
+        image: this.originalTask?.image || "", // Use original image if available
         status: formValues.status,
         creator: this.originalTask?.creator || {
           id: 1,

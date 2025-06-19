@@ -32,6 +32,7 @@ export class BugReportFormComponent implements OnInit, OnDestroy {
     title: '',
     description: '',
     link: '',
+    image: '',
     difficulty: 'MEDIUM',
     payout: 0,
     budget: 0

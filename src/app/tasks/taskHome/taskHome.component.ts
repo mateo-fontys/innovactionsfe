@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Task } from '../shared/task.model';
 import TaskService from "../shared/tasks.service"
+import { Task } from '../shared/task.model';
 
 @Component({
   selector: 'app-task-home',
@@ -11,7 +11,11 @@ import TaskService from "../shared/tasks.service"
   styleUrls: ['./taskHome.component.css'],
   imports: [CommonModule]
 })
+
+
+
 export class TaskHomeComponent implements OnInit {
+  
   tasks: Task[] = [];
   creatorId = 1!;
   role = "creator";
@@ -34,8 +38,12 @@ export class TaskHomeComponent implements OnInit {
    TaskService.getTasksFromCreator(creatorId)
       .then((response) => {
         this.tasks = response.tasks;
+        
         this.tasks = [...this.tasks.sort((a: Task, b: Task) => (Number(b.id || 0) - Number(a.id || 0)))];
   
+       
+
+
         console.log(this.tasks);
         this.isLoading = false;
       })
@@ -69,3 +77,12 @@ export class TaskHomeComponent implements OnInit {
   }
 }
 
+export interface RenderTask {
+  id: number;
+  title: string;
+  description: string;
+  difficulty: 'LOW' | 'MEDIUM' | 'HIGH';
+  status: 'ACCEPTED' | 'PENDING' | 'DECLINED' | 'DEACTIVATED';
+  previewUrl?: string | null; 
+  creator?: { id: number };
+}

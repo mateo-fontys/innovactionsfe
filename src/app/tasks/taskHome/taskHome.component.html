@@ -60,8 +60,13 @@
             }">
               {{ task.status }}
             </div>
-            <img [src]="'https://static.vecteezy.com/system/resources/thumbnails/007/470/513/small_2x/important-business-checklist-planning-for-shopping-reminder-or-project-priority-task-list-3d-render-photo.jpg'" class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" [alt]="task.title + ' image'" />
-          </div>
+
+          <img 
+  [src]="task.image ? 'data:image/png;base64,' + task.image : 'https://static.vecteezy.com/system/resources/thumbnails/007/470/513/small_2x/important-business-checklist-planning-for-shopping-reminder-or-project-priority-task-list-3d-render-photo.jpg'" 
+  alt="Preview" 
+  class="w-full h-full object-cover" 
+/>
+ </div>
           <div class="p-6 flex flex-col flex-1">
             <h3 class="text-lg font-semibold text-slate-800 mb-3 leading-relaxed">
               {{ task.title }}
