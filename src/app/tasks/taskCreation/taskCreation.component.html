@@ -20,6 +20,9 @@
             </button>
             <input type="file" hidden #fileInput (change)="handleManualFileUpload($event)"
               accept="image/*,video/*">
+
+          <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" style="max-width: 300px; border: 1px solid #ccc;" />
+
             <div class="mt-4" *ngIf="uploadedFiles.length > 0">
               <ul class="border border-black-600 text-sm text-gray-600 space-y-2 max-h-[200px] overflow-y-auto pr-1 p-0">
                 <li *ngFor="let file of uploadedFiles; let i = index"
